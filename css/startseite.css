@@ -1,0 +1,19 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Stellt sicher, dass das Bild die gesamte Höhe des Viewports einnimmt */
+  }
+  
+  .background-container {
+    background-image src="images/background.png"; /* Pfad zum Bild */
+    background-size: cover; /* Das Bild wird so skaliert, dass es den gesamten Container füllt */
+    background-position: center; /* Das Bild bleibt zentriert */
+    background-repeat: no-repeat; /* Verhindert, dass das Bild wiederholt wird */
+    height: 100vh; /* Nimmt die gesamte Höhe des Viewports ein */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white; /* Textfarbe */
+    text-align: center;
+  }
