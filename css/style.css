@@ -110,6 +110,7 @@ li h1 {
   z-index: 20;
   position: fixed;
   right: 2rem;
+  margin-top: 4rem;
 }
 
 .burger .bar {
