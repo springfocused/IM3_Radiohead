@@ -1,0 +1,52 @@
+body {
+    background-image: url('../images/background.png');
+    background-size: cover; /* Deckt den gesamten Hintergrund ab */
+    background-position: center; /* Bild wird zentriert */
+    background-repeat: repeat; /* Das Bild wiederholt sich nicht */
+    margin: 0;
+    padding: 4%;
+  }
+
+  @font-face {
+    font-family: 'Bangers';
+    src: url('../schriften/bangers.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Digital';
+    src: url('../schriften/digital.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Fresca';
+    src: url('../schriften/fresca.ttf') format('truetype');
+  }
+
+  h1 {
+    color: #f2e206;
+    font-size: 150px;
+    text-align: left;
+    font-family: 'Bangers', sans-serif;
+  }
+  
+  h2 {
+    color: #f2e206;
+    font-size: 36px;
+    text-align: left;
+    font-family: 'Bangers', sans-serif;
+  }
+  
+  h3 {
+    color: #f2e206;
+    font-size: 64px;
+    text-align: left;
+    font-family: 'Digital', sans-serif;
+  }
+  
+  p {
+    color: #fff;
+    font-size: 32px;
+    text-align: left;
+    font-family: 'Fresca', sans-serif;
+  }
+    
