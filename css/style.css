@@ -50,4 +50,85 @@ body {
     text-align: left;
     font-family: 'Fresca', sans-serif;
   }
-    
+ 
+  
+  /* Titel links */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  padding: 20px 0;
+  margin: 0 auto;
+}
+
+/* Burger-Menü rechts */
+.menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 50%;
+  z-index: 10;
+  background-color: black;
+  flex-direction: column;
+  padding: 20px;
+  transition: transform 0.3s ease; /* Für Animation beim Öffnen */
+}
+
+.menu a {
+  color: #ffffff;            /* Normale Linkfarbe (weiß) */
+  text-decoration: none;    /* Entfernt die Unterstreichung */
+  font-size: 5rem;          /* Schriftgröße */
+  font-family: 'Bangers', sans-serif; /* Schriftart */
+  padding: 0.25rem;            /* Innenabstand für besseren Klickbereich */
+  display: block;           /* Blockelement */
+  text-align: right;      
+  margin-top: 8rem;
+  margin-right: 2rem;
+}
+
+/* Aktiviertes Menü */
+.menu.active {
+  display: flex;
+}
+
+/* Menüformatierung */
+ul {
+  color: #ffffff;
+  list-style: none;
+}
+
+li h1 {
+  margin-bottom: 10%;
+}
+
+/* Burger-Icon */
+.burger {
+  cursor: pointer;
+  z-index: 20;
+  position: fixed;
+  right: 2rem;
+}
+
+.burger .bar {
+  width: 30px;
+  height: 3px;
+  background-color: #ffffff;
+  margin: 5px 0;
+  transition: transform 0.3s;
+}
+
+/* Styling für das Kreuzsymbol bei Klick auf Burger-Menü */
+.burger.open .bar:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.burger.open .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.burger.open .bar:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
