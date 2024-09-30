@@ -4,7 +4,8 @@ body {
     background-position: center; /* Bild wird zentriert */
     background-repeat: repeat; /* Das Bild wiederholt sich nicht */
     margin: 0;
-    padding: 4%;
+    padding-left: 4%;
+    padding-right: 4%;
   }
 
   @font-face {

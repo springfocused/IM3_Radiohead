@@ -1,7 +1,7 @@
 .radio-image {
     display: block; /* Bild wird als Block-Element behandelt */
     margin: 0 auto; /* Zentriert das Bild horizontal */
-    width: 80%; /* Setzt die Breite des Bildes auf 80% der verfügbaren Breite */
-    max-width: 600px; /* Setzt die maximale Breite auf 600px, um das Bild nicht zu groß zu machen */
+    width: 65%; /* Setzt die Breite des Bildes auf 80% der verfügbaren Breite */
+    max-width: 65%; /* Setzt die maximale Breite auf 600px, um das Bild nicht zu groß zu machen */
     height: auto; /* Beibehaltung des Seitenverhältnisses */
   }
