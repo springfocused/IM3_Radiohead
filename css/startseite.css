@@ -5,3 +5,11 @@
     max-width: 65%; /* Setzt die maximale Breite auf 600px, um das Bild nicht zu groß zu machen */
     height: auto; /* Beibehaltung des Seitenverhältnisses */
   }
+
+
+  #preview {
+    display: flex;                /* Flexbox aktivieren */
+    justify-content: space-between; /* Platzierung der Elemente mit Abstand dazwischen */
+    align-items: stretch;          /* Artikel gleich hoch machen */
+    gap: 20px;                     /* Abstand zwischen den Artikeln */
+  }
