@@ -2,9 +2,9 @@
 
 // Datenbankverbindungsparameter
 $host = 'bf6o9g.myd.infomaniak.com';
-$dbname = 'bf609g_im3';
-$username = 'bf609g_im3';
-$password = 'Z60J_64gyS0';
+$dbname = 'bf6o9g_im3';
+$username = 'bf6o9g_im3';
+$password = 'Z6oJ_64gyS0';
 
 // DSN (Datenquellenname) für PDO
 $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8";
