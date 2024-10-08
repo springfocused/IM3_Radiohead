@@ -78,8 +78,36 @@ function getArtistGenres($artist_id, $access_token) {
     curl_close($ch);
 
     $artist_info = json_decode($result, true);
-    return $artist_info['genres'] ?? []; // Gibt die Genres zurück oder ein leeres Array
+    
+    // Falls keine Genres vorhanden sind, null zurückgeben
+    if (empty($artist_info['genres'])) {
+        return null;
+    }
+
+// Liste der bevorzugten Genres
+$preferred_genres = [
+    'rock', 'pop', 'metal', 'techno', 'hip hop', 'jazz', 'classical', 
+    'blues', 'country', 'reggae', 'soul', 'funk', 'house', 
+    'disco', 'punk', 'alternative', 'indie', 'trap', 
+    'r&b', 'dubstep', 'electronic', 'folk', 'grunge', 'salsa',
+    'latin', 'k-pop', 'gospel', 'trance', 'drum and bass', 'progressive', 
+    'ambient', 'industrial', 'singer-songwriter', 'reggaeton', 'mellow'
+];
+
+
+    // Durchsuche die Genres nach Übereinstimmungen mit den bevorzugten Genres
+    foreach ($artist_info['genres'] as $genre) {
+        foreach ($preferred_genres as $preferred_genre) {
+            if (stripos($genre, $preferred_genre) !== false) {
+                return $preferred_genre; // Gib das bevorzugte Genre zurück
+            }
+        }
+    }
+
+    // Falls kein bevorzugtes Genre gefunden wurde, gib das erste Genre zurück
+    return $artist_info['genres'][0] ?? null;
 }
+
 
 // SRF-Daten abrufen
 $srf_data = fetchSRFData();
@@ -127,7 +155,6 @@ foreach ($srf_data['songList'] as $song) {
     }
 }
 
-// Optional: Gebe die transformierten Daten als JSON aus
-header('Content-Type: application/json');
-echo json_encode($transformedData, JSON_PRETTY_PRINT);
+return $transformedData; // Gibt die transformierten Daten zurück
+
 ?>
