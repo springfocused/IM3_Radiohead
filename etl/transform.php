@@ -83,7 +83,7 @@ function getArtistGenres($artist_id, $access_token) {
     
     // Falls keine Genres vorhanden sind, null zurückgeben
     if (empty($artist_info['genres'])) {
-        return null;
+        return NULL;
     }
 
 // Liste der bevorzugten Genres
@@ -141,7 +141,7 @@ foreach ($srf_data['songList'] as $song) {
             'isPlayingNow' => $song['isPlayingNow'],
             'artist' => $artist_name,
             'next_url' => null, // Hier könntest du eine URL setzen, falls erforderlich
-            'genre' => $genres // Genre von Spotify
+            'genre' => $genres ?? null // Genre von Spotify
         ];
     } else {
         // Wenn kein Track gefunden wurde, fügen wir einen Eintrag ohne Genre hinzu
@@ -152,7 +152,7 @@ foreach ($srf_data['songList'] as $song) {
             'isPlayingNow' => $song['isPlayingNow'],
             'artist' => $artist_name,
             'next_url' => null,
-            'genre' => [] // Kein Genre gefunden
+            'genre' =>  null // Kein Genre gefunden
         ];
     }
 }
