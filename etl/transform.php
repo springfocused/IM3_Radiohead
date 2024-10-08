@@ -58,10 +58,12 @@ function searchSong($song_name, $artist_name, $access_token) {
 function getGenresFromTrack($track, $access_token) {
     $artist_id = $track['artists'][0]['id'] ?? null;
     if ($artist_id) {
-        return getArtistGenres($artist_id, $access_token);
+        $genres = getArtistGenres($artist_id, $access_token);
+        return !empty($genres) ? $genres : null; // Gibt Genres zurück oder NULL, wenn keine gefunden werden
     }
-    return []; // Kein Genre gefunden
+    return null; // Kein Genre gefunden, gibt NULL zurück
 }
+
 
 // Funktion zum Abrufen der Genres eines Künstlers
 function getArtistGenres($artist_id, $access_token) {

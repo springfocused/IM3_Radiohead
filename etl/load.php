@@ -47,5 +47,4 @@ try {
     die("Verbindung zur Datenbank konnte nicht hergestellt werden: " . $e->getMessage());
 }
 
-
 ?>
