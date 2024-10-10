@@ -16,7 +16,7 @@ try {
     $check_stmt = $pdo->prepare($check_sql);
 
     // SQL-Query für das Einfügen von Daten
-    $sql = "INSERT INTO songs (date, duration, title, isPlayingNow, artist, next_url, genre) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO songs (date, duration, title, isPlayingNow, artist, genre) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $pdo->prepare($sql);
 
     // Fügt jedes Element im Array in die Datenbank ein
@@ -35,7 +35,6 @@ try {
                     $item['title'],
                     $item['isPlayingNow'],
                     $item['artist'],
-                    $item['next_url'],
                     $item['genre']
                 ]);
             } else {
