@@ -3,7 +3,7 @@
 // Transformations-Skript als '230_transform.php' einbinden
 $dataArray = include('transform.php');
 
-print_r($dataArray);
+// print_r($dataArray);
 
 require_once 'config.php'; // Bindet die Datenbankkonfiguration ein
 
@@ -49,5 +49,6 @@ try {
 } catch (PDOException $e) {
     die("Verbindung zur Datenbank konnte nicht hergestellt werden: " . $e->getMessage());
 }
+
 
 ?>

@@ -30,8 +30,7 @@ try {
             $sql = "SELECT title, artist, COUNT(*) as play_count
             FROM songs
             GROUP BY title, artist
-            ORDER BY play_count DESC
-            LIMIT 20";
+            ORDER BY play_count DESC";
             break;
         case 'genre':
             // SQL-Query, um Daten basierend auf dem Genre auszuwählen, sortiert nach Zeitstempel
