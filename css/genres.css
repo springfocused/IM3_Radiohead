@@ -1,5 +1,16 @@
-#topGenres {
+#genresChart {
     display: flex;
     justify-content: space-between; 
     flex-direction: column;
 }
+
+canvas {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000c4;
+    border-radius: 15px;      /* Abgerundete Ecken */
+    padding: 20px; 
+  }

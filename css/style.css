@@ -148,6 +148,15 @@ li h1 {
   padding: 20px; 
 }
 
+#genresChart {
+  width: 100%; /* 100% Breite */
+  height: 100%; /* 100% Höhe */
+  background-color: rgba(0, 0, 0, 0.77); /* Schwarzer Hintergrund */
+  border-radius: 15px; /* Abgerundete Ecken */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optionaler Schatten */
+}
+
+
 .containerSmall {
   width: 30%;
   height: 20rem;

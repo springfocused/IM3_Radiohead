@@ -6,6 +6,7 @@
     <title>Genres</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/genres.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header class="header">
@@ -41,12 +42,14 @@
     </header>
     
     <main>
-        <div><h1>Genres im Vergleich</h1></div>
-        <!-- Container for displaying genres data -->
-        <div class="container" id="topGenres"></div>
-    
-    </main>
-    
+        <div>
+            <h1>Genres im Vergleich</h1>
+        </div>
+        <div class="container"> <!-- Container für das Diagramm -->
+            <canvas id="genresChart"></canvas>
+        </div>
+      </main>
+      
     <!-- JavaScript to load genres data -->
     <script src="js/genres.js"></script>    
 </body>
