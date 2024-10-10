@@ -1,7 +1,7 @@
 // Elemente abrufen
 const burger = document.querySelector('.burger');
 const menu = document.querySelector('.menu');
-const genresContainer = document.getElementById('genresContainer'); // Container für Genres
+const topgenres = document.getElementById('topGenres'); // Container für Genres
 
 // Event-Listener für das Burgermenü
 burger.addEventListener('click', toggleMenu);
@@ -32,18 +32,18 @@ async function fetchGenres() {
     } catch (error) {
         // Log any error in the console
         console.error('Error fetching genres:', error);
-        genresContainer.innerHTML = '<p>Fehler beim Laden der Genres.</p>';
+        topGenres.innerHTML = '<p>Fehler beim Laden der Genres.</p>';
     }
 }
 
 // Function to display the fetched genres data
 function displayGenres(data) {
     // Clear the container content
-    genresContainer.innerHTML = '';
+    topGenres.innerHTML = '';
     
     // Check if there is any data
     if (data.length === 0) {
-        genresContainer.innerHTML = '<p>Keine Genres gefunden.</p>';
+        topGenres.innerHTML = '<p>Keine Genres gefunden.</p>';
         return;
     }
     
@@ -65,7 +65,7 @@ function displayGenres(data) {
         `;
         
         // Append the genre element to the container
-        genresContainer.appendChild(genreElement);
+        topGenres.appendChild(genreElement);
     });
 }
 
