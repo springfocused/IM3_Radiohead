@@ -58,7 +58,10 @@ function searchSong($song_name, $artist_name, $access_token) {
 function getGenresFromTrack($track, $access_token) {
     $artist_id = $track['artists'][0]['id'] ?? null;
     if ($artist_id) {
+
+
         $genres = getArtistGenres($artist_id, $access_token);
+
         return !empty($genres) ? $genres : null; // Gibt Genres zurück oder NULL, wenn keine gefunden werden
     }
     return null; // Kein Genre gefunden, gibt NULL zurück
@@ -79,7 +82,10 @@ function getArtistGenres($artist_id, $access_token) {
     $result = curl_exec($ch);
     curl_close($ch);
 
+
     $artist_info = json_decode($result, true);
+
+    print_r($artist_info);
     
     // Falls keine Genres vorhanden sind, null zurückgeben
     if (empty($artist_info['genres'])) {
@@ -158,5 +164,7 @@ foreach ($srf_data['songList'] as $song) {
 }
 
 return $transformedData; // Gibt die transformierten Daten zurück
+
+$genres = getGenresFromTrack($track, $access_token);
 
 ?>
