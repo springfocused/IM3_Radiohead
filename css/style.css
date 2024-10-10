@@ -141,8 +141,9 @@ li h1 {
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: left;
   background-color: #000000c4;
   border-radius: 15px;      /* Abgerundete Ecken */
   padding: 20px; 

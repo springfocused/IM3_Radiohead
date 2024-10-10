@@ -1,5 +1,36 @@
-#topSongs {
+/* Container für alle Songs */
+#topsongs {
     display: flex;
-    justify-content: space-between; 
     flex-direction: column;
+    gap: 1rem; /* Abstand zwischen den Song-Items */
+    padding: 1rem;
+}
+
+/* Stil für jedes einzelne Song-Item */
+.song-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Elemente mit gleichmäßigen Abständen verteilen */
+    align-items: center;
+    padding: 1rem;
+    border: 1px ;
+    border-radius: 5px;
+    width: 100%;
+}
+
+/* Einzelne Elemente in der Flexbox */
+.song-rank, .song-title, .song-artist, .song-plays {
+    text-align: left; /* Text linksbündig ausrichten */
+}
+
+.song-rank {
+    width: 10%;
+}
+
+.song-title, .song-artist {
+    width: 30%;
+}
+
+.song-plays {
+    width: 20%;
 }
