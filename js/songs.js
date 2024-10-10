@@ -60,8 +60,7 @@ data.forEach((item, index) => {
     
     // HTML-Struktur erstellen, die den Titel und die Wiedergabezahlen enthält
     titleElement.innerHTML = `
-        <h2>${index + 1}. ${item.title}</h2>
-        <p>Wiedergaben: ${item.play_count}</p>
+        <p>${index + 1}. ${item.title} ${item.artist} ${item.play_count}</p>
     `;
     
     // Füge das erstellte Element in den Top Songs-Container ein

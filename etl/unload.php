@@ -27,9 +27,9 @@ try {
     switch ($_GET['type']) {
         case 'title':
             // SQL-Query, um Daten
-            $sql = "SELECT title, COUNT(*) as play_count
+            $sql = "SELECT title, artist, COUNT(*) as play_count
             FROM songs
-            GROUP BY title
+            GROUP BY title, artist
             ORDER BY play_count DESC
             LIMIT 20";
             break;
