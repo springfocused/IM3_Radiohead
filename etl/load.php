@@ -1,8 +1,7 @@
 <?php
 
-// Transformations-Skript  als '230_transform.php' einbinden
+// Transformations-Skript als '230_transform.php' einbinden
 $dataArray = include('transform.php');
-
 
 print_r($dataArray);
 
@@ -22,23 +21,28 @@ try {
 
     // Fügt jedes Element im Array in die Datenbank ein
     foreach ($dataArray as $item) {
-        // Überprüfen, ob der Eintrag bereits existiert
-        $check_stmt->execute([$item['date']]);
-        $count = $check_stmt->fetchColumn();
+        // Nur fortfahren, wenn 'isPlayingNow' 0 ist
+        if ($item['isPlayingNow'] == 0) {
+            // Überprüfen, ob der Eintrag bereits existiert
+            $check_stmt->execute([$item['date']]);
+            $count = $check_stmt->fetchColumn();
 
-        if ($count == 0) {
-            // Einfügen, wenn der Eintrag nicht existiert
-            $stmt->execute([
-                $item['date'],
-                $item['duration'],
-                $item['title'],
-                $item['isPlayingNow'],
-                $item['artist'],
-                $item['next_url'],
-                $item['genre']
-            ]);
+            if ($count == 0) {
+                // Einfügen, wenn der Eintrag nicht existiert
+                $stmt->execute([
+                    $item['date'],
+                    $item['duration'],
+                    $item['title'],
+                    $item['isPlayingNow'],
+                    $item['artist'],
+                    $item['next_url'],
+                    $item['genre']
+                ]);
+            } else {
+                echo "Doppelter Eintrag gefunden für das Datum: " . $item['date'] . ". Überspringe diesen Eintrag.<br>";
+            }
         } else {
-            echo "Doppelter Eintrag gefunden für das Datum: " . $item['date'] . ". Überspringe diesen Eintrag.<br>";
+            echo "Eintrag für das Datum " . $item['date'] . " wird übersprungen, da 'isPlayingNow' auf 1 gesetzt ist.<br>";
         }
     }
 
