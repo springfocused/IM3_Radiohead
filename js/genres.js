@@ -61,7 +61,7 @@ function displayGenres(data) {
         // Create the HTML structure for each genre
         genreElement.innerHTML = `
             <h2>${index + 1}. ${item.genre}</h2>
-            <p>Beliebtheit: ${item.popularity}</p>
+            <p>Beliebtheit: ${item.play_count}</p>
         `;
         
         // Append the genre element to the container
