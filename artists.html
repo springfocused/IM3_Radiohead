@@ -39,7 +39,30 @@
             </div>
         </div>
     </header>
-    <main><div><h1>Top-Artists</h1></div></main>
+
+    <main><div><h1>Top-Artists</h1></div>
+            
+            <article id="dropDown">
+                <select id="time-period">
+                <option value="today">Heute</option>
+                <option value="7days">Letzte 7 Tage</option>
+                <option value="30days">Letzte 30 Tage</option>
+                <option value="all">seit Oktober 2024</option>
+                </select>
+            </article>
+
+            <article class="container">
+                <div class="artist-item">
+                    <h2 class="artist-rank">Rang</h2>
+                    <h2 class="artist">Artist</h2>
+                    <h2 class="artist-plays">Gespielte Lieder</h2>
+                </div>
+
+                <div id="topArtist"></div>
+            </article>
+    </main>
+
+    </main>
    <!-- JavaScript wird jetzt hier eingefügt -->
    <script src="js/artists.js"></script>   
 </body>
