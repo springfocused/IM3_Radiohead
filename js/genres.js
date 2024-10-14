@@ -20,7 +20,7 @@ dropdown.addEventListener('change', fetchData); // Funktion wird beim Ändern de
 async function fetchData() {
     const selectedValue = dropdown.value; // Den aktuellen Wert des Dropdowns abrufen
     const url = `https://springfocused.ch/etl/unload.php?type=genre&period=${selectedValue}`; // URL dynamisch basierend auf der Auswahl erstellen
-  
+
     try {
         // Fetch the data from the endpoint
         const response = await fetch(url);
@@ -36,9 +36,8 @@ async function fetchData() {
         // Daten im Diagramm anzeigen
         createGenresChart(data);
     } catch (error) {
-        // Fehler im Konsolenprotokoll anzeigen
-        console.error('Error fetching data:', error);
-        genresChart.innerHTML = `<p>Fehler beim Laden der Daten.</p>`;
+               // Log any error in the console
+               console.error('Error fetching genres:', error);
     }
 }
 
@@ -48,10 +47,10 @@ function createGenresChart(data) {
     const labels = data.map(item => item.genre); // Genres als Labels
     const playCounts = data.map(item => item.play_count); // Abgespielte Songs als Werte
 
-    // Überprüfen, ob das Chart-Objekt bereits existiert und es aktualisieren
-    if (genresChartInstance) {
-        genresChartInstance.destroy(); // Zerstöre das bestehende Chart-Objekt
-    }
+        // Überprüfen, ob das Chart-Objekt bereits existiert und es aktualisieren
+        if (genresChartInstance) {
+            genresChartInstance.destroy(); // Zerstöre das bestehende Chart-Objekt
+        }
 
     // Chart.js Balkendiagramm erstellen
     genresChartInstance = new Chart(genresChart, {
@@ -88,3 +87,4 @@ function createGenresChart(data) {
 
 // Funktion zum Abrufen und Anzeigen der Genres-Daten aufrufen
 fetchData(); // Initialer Aufruf der Funktion um die Daten beim Laden der Seite zu holen
+
