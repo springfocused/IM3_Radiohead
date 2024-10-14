@@ -160,7 +160,7 @@ li h1 {
 
 .containerSmall {
   width: 30%;
-  height: 20rem;
+  height: 25rem;
   display: flex;
   flex-direction: column; /* Stellt sicher, dass die Elemente untereinander angeordnet werden */
   justify-content: center;
@@ -168,16 +168,4 @@ li h1 {
   background-color: #000000c4;
   border-radius: 15px;      /* Abgerundete Ecken */
   padding: 20px; 
-}
-
-.rotated-text {
-  transform: rotate(-90deg); /* Dreht den Text um 90 Grad */
-}
-
-.yellow-line {
-  background-color: #f2e206; /* Farbe des Strichs */
-  height: 4px;              /* Höhe des Strichs */
-  width: 100%;              /* Breite des Strichs (anpassbar) */
-  margin: 20px 0;           /* Abstand oben und unten */
-  transform: rotate(90deg);
 }

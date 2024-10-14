@@ -26,12 +26,13 @@ async function fetchDepartures() {
     console.error('Error fetching data:', error); // Log errors to the console
   }
 }
+
 // Elemente abrufen
 const smallGenresChart = document.getElementById('smallGenresChart'); // Canvas-Element für das kleine Diagramm
 
 // Define an asynchronous function to fetch data from the endpoint
 async function fetchTopGenres() {
-    const url = 'https://springfocused.ch/etl/unload.php?type=genre&period=today'; // URL für Genres mit dem Zeitraum heute
+    const url = 'https://springfocused.ch/etl/unload.php?type=genre&period=7days'; // URL für Genres mit dem Zeitraum heute
 
     try {
         // Fetch the data from the endpoint
@@ -97,3 +98,59 @@ function createSmallGenresChart(data) {
 
 // Funktion zum Abrufen und Anzeigen der Genres-Daten aufrufen
 fetchTopGenres(); // Initialer Aufruf der Funktion um die heutigen Daten beim Laden der Seite zu holen
+
+// Funktion zum Abrufen und Anzeigen der Top 3 Songs
+async function fetchTopSongs() {
+    const url = 'https://springfocused.ch/etl/unload.php?type=title&period=7days'; // URL für die Top Songs der letzten 7 Tage
+
+    try {
+        // Daten von der API abrufen
+        const response = await fetch(url);
+    
+        // Überprüfen, ob die Antwort OK ist
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+    
+        // Antwort in JSON konvertieren
+        const data = await response.json();
+    
+        // Top 3 Songs sortieren und auswählen
+        const top3Data = data.sort((a, b) => b.play_count - a.play_count).slice(0, 3);
+    
+        // Daten anzeigen
+        displayTopSongs(top3Data);
+    } catch (error) {
+        console.error('Error fetching top songs:', error);
+    }
+}
+
+// Funktion zum Darstellen der Songs im HTML
+function displayTopSongs(songs) {
+    const smallSong = document.getElementById('smallSong'); // Container für die Songs
+    smallSong.innerHTML = ''; // Vorherigen Inhalt leeren
+
+    // Wenn keine Songs gefunden wurden
+    if (songs.length === 0) {
+        smallSong.innerHTML = '<p>Keine Songs verfügbar.</p>';
+        return;
+    }
+
+    // Top 3 Songs als Liste durchlaufen und einfügen
+    songs.forEach((song, index) => {
+        // Neues div-Element erstellen
+        const songElement = document.createElement('div');
+        songElement.classList.add('song-item'); // Optional: CSS-Klasse hinzufügen für Styling
+        
+        // Song-Informationen (Rang, Titel, Künstler, Play Count) einfügen
+        songElement.innerHTML = `
+            <p><strong>${index + 1}. ${song.title}</strong> von ${song.artist}</p>
+        `;
+        
+        // In den smallSong-Container einfügen
+        smallSong.appendChild(songElement);
+    });
+}
+
+// Beim Laden der Seite die Daten abrufen
+fetchTopSongs();
