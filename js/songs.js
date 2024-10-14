@@ -52,7 +52,7 @@ function displayData(data) {
         return;
     }
 
-  const limitedData = data.slice(0, 20);
+const limitedData = data.slice(0, 20);
 
     // Daten durchlaufen und HTML für jeden Eintrag erstellen
     limitedData.forEach((item, index) => {

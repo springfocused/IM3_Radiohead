@@ -26,13 +26,12 @@ async function fetchDepartures() {
     console.error('Error fetching data:', error); // Log errors to the console
   }
 }
-
 // Elemente abrufen
 const smallGenresChart = document.getElementById('smallGenresChart'); // Canvas-Element für das kleine Diagramm
 
 // Define an asynchronous function to fetch data from the endpoint
 async function fetchTopGenres() {
-    const url = 'https://springfocused.ch/etl/unload.php?type=genre'; // URL für Genres
+    const url = 'https://springfocused.ch/etl/unload.php?type=genre&period=today'; // URL für Genres mit dem Zeitraum heute
 
     try {
         // Fetch the data from the endpoint
@@ -97,4 +96,4 @@ function createSmallGenresChart(data) {
 }
 
 // Funktion zum Abrufen und Anzeigen der Genres-Daten aufrufen
-fetchTopGenres();
+fetchTopGenres(); // Initialer Aufruf der Funktion um die heutigen Daten beim Laden der Seite zu holen

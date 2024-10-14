@@ -1,8 +1,9 @@
 // Elemente abrufen
 const burger = document.querySelector('.burger');
 const menu = document.querySelector('.menu');
+const dropdown = document.getElementById('time-period'); // Dropdown für die Zeiträume
 const genresChart = document.getElementById('genresChart'); // Canvas-Element für das Diagramm
-
+let genresChartInstance; // Variable für das Chart-Objekt
 
 // Event-Listener für das Burgermenü
 burger.addEventListener('click', toggleMenu);
@@ -12,10 +13,14 @@ function toggleMenu() {
     burger.classList.toggle('open');
 }
 
-// Define an asynchronous function to fetch data from the endpoint
-async function fetchGenres() {
-    const url = 'https://springfocused.ch/etl/unload.php?type=genre'; // URL für Genres
+// Event-Listener für Dropdown-Auswahl
+dropdown.addEventListener('change', fetchData); // Funktion wird beim Ändern des Dropdowns aufgerufen
 
+// Define an asynchronous function to fetch data from the endpoint
+async function fetchData() {
+    const selectedValue = dropdown.value; // Den aktuellen Wert des Dropdowns abrufen
+    const url = `https://springfocused.ch/etl/unload.php?type=genre&period=${selectedValue}`; // URL dynamisch basierend auf der Auswahl erstellen
+  
     try {
         // Fetch the data from the endpoint
         const response = await fetch(url);
@@ -28,11 +33,12 @@ async function fetchGenres() {
         // Parse the response as JSON
         const data = await response.json();
     
-        // Create the chart with fetched data
+        // Daten im Diagramm anzeigen
         createGenresChart(data);
     } catch (error) {
-        // Log any error in the console
-        console.error('Error fetching genres:', error);
+        // Fehler im Konsolenprotokoll anzeigen
+        console.error('Error fetching data:', error);
+        genresChart.innerHTML = `<p>Fehler beim Laden der Daten.</p>`;
     }
 }
 
@@ -42,8 +48,13 @@ function createGenresChart(data) {
     const labels = data.map(item => item.genre); // Genres als Labels
     const playCounts = data.map(item => item.play_count); // Abgespielte Songs als Werte
 
+    // Überprüfen, ob das Chart-Objekt bereits existiert und es aktualisieren
+    if (genresChartInstance) {
+        genresChartInstance.destroy(); // Zerstöre das bestehende Chart-Objekt
+    }
+
     // Chart.js Balkendiagramm erstellen
-    new Chart(genresChart, {
+    genresChartInstance = new Chart(genresChart, {
         type: 'bar', // Balkendiagramm
         data: {
             labels: labels, // Labels für die Genres
@@ -76,5 +87,4 @@ function createGenresChart(data) {
 }
 
 // Funktion zum Abrufen und Anzeigen der Genres-Daten aufrufen
-fetchGenres();
-
+fetchData(); // Initialer Aufruf der Funktion um die Daten beim Laden der Seite zu holen
