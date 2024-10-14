@@ -3,6 +3,7 @@ const burger = document.querySelector('.burger');
 const menu = document.querySelector('.menu');
 const genresChart = document.getElementById('genresChart'); // Canvas-Element für das Diagramm
 
+
 // Event-Listener für das Burgermenü
 burger.addEventListener('click', toggleMenu);
 
@@ -35,13 +36,13 @@ async function fetchGenres() {
     }
 }
 
-// Function to create a chart with genres data
+// Funktion zum Erstellen des Diagramms mit Genres-Daten
 function createGenresChart(data) {
-    // Prepare data for the chart
+    // Daten für das Diagramm vorbereiten
     const labels = data.map(item => item.genre); // Genres als Labels
     const playCounts = data.map(item => item.play_count); // Abgespielte Songs als Werte
 
-    // Chart.js erstellen
+    // Chart.js Balkendiagramm erstellen
     new Chart(genresChart, {
         type: 'bar', // Balkendiagramm
         data: {
@@ -60,15 +61,20 @@ function createGenresChart(data) {
                     ticks: {
                         maxRotation: 90, // Maximale Drehung
                         minRotation: 90, // Feste 90° Drehung für vertikalen Text
+                        font: {
+                            size: 24,  // Schriftgröße wie bei <h2>
+                            family: 'bangers',  // Schriftart
+                        }
                     }
                 },
                 y: {
-                    beginAtZero: true // Y-Achse bei 0 beginnen
+                    beginAtZero: true // Y-Achse beginnt bei 0
                 }
             }
         }
     });
 }
 
-// Call the function to fetch and display the genres data when the page loads
+// Funktion zum Abrufen und Anzeigen der Genres-Daten aufrufen
 fetchGenres();
+
