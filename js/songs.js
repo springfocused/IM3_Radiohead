@@ -1,6 +1,8 @@
 // Elemente abrufen
 const burger = document.querySelector('.burger');
 const menu = document.querySelector('.menu');
+const dropdown = document.getElementById('time-period'); // Dropdown-Element abrufen
+const topSongs = document.getElementById('topSongs'); // Container für Top-Songs abrufen
 
 // Event-Listener für das Burgermenü
 burger.addEventListener('click', toggleMenu);
@@ -10,28 +12,32 @@ function toggleMenu() {
     burger.classList.toggle('open');
 }
 
+// Event-Listener für Dropdown-Auswahl
+dropdown.addEventListener('change', fetchData); // Funktion wird beim Ändern des Dropdowns aufgerufen
+
 // Define an asynchronous function to fetch data from the endpoint
 async function fetchData() {
-    const url = 'https://springfocused.ch/etl/unload.php?type=title';
+    const selectedValue = dropdown.value; // Den aktuellen Wert des Dropdowns abrufen
+    const url = `https://springfocused.ch/etl/unload.php?type=title&period=${selectedValue}`; // URL dynamisch basierend auf der Auswahl erstellen
   
     try {
-      // Fetch the data from the endpoint
-      const response = await fetch(url);
-  
-      // Check if the response status is OK (200-299)
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-  
-      // Parse the response as JSON
-      const data = await response.json();
-  
-      // Daten im Top Songs-Container anzeigen
-      displayData(data);
+        // Fetch the data from the endpoint
+        const response = await fetch(url);
+    
+        // Check if the response status is OK (200-299)
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+    
+        // Parse the response as JSON
+        const data = await response.json();
+    
+        // Daten im Top Songs-Container anzeigen
+        displayData(data);
     } catch (error) {
-      // Fehler im Konsolenprotokoll anzeigen
-      console.error('Error fetching data:', error);
-      topSongs.innerHTML = `<p>Fehler beim Laden der Daten.</p>`;
+        // Fehler im Konsolenprotokoll anzeigen
+        console.error('Error fetching data:', error);
+        topSongs.innerHTML = `<p>Fehler beim Laden der Daten.</p>`;
     }
 }
 
@@ -46,8 +52,7 @@ function displayData(data) {
         return;
     }
 
-    // Begrenze die Anzahl der dargestellten Songs auf 20
-    const limitedData = data.slice(0, 20); // Nimm nur die ersten 20 Einträge
+  const limitedData = data.slice(0, 20);
 
     // Daten durchlaufen und HTML für jeden Eintrag erstellen
     limitedData.forEach((item, index) => {
@@ -72,5 +77,5 @@ function displayData(data) {
     });
 }
 
-// Funktion zum Abrufen der Daten aufrufen
+// Funktion zum Abrufen der Daten beim Laden der Seite aufrufen
 fetchData();
