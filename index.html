@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Genres</title>
+    <title>Radiohead</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/genres.css">
+    <link rel="stylesheet" href="css/startseite.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
     <header class="header">
         <nav class="navigation">
@@ -40,16 +41,28 @@
             </div>
         </div>
     </header>
-    
+
     <main>
-        <div>
-            <h1>Genres im Vergleich</h1>
+        <div><h1>SRF INSPECTOR</h1></div>
+        <div><img src="images/radio.png" alt="Radio" class="radio-image"></div>
+
+        <div id="preview"> 
+            <article class="containerSmall">
+                <h2 class="rotated-text">Heutiger Top-Song</h2>
+                <div class="yellow-line"></div>
+            </article>
+            <article class="containerSmall">
+                <h2>Heutiger Top-Artist</h2>
+            </article>
+            <article class="containerSmall">
+                <h2>Heutiges Top-Genre</h2> <!-- Überschrift bleibt innerhalb des containerSmall -->
+                <div class="container"> <!-- Container für das Diagramm -->
+                    <canvas id="smallGenresChart"></canvas>
+                </div>
+            </article>
         </div>
-        <canvas id="genresChart" width="400" height="200"></canvas>
-      </main>
-      
-    <!-- JavaScript to load genres data -->
-    <script src="js/genres.js"></script>    
+    </main>
+    
+    <script src="js/script.js"></script>
 </body>
 </html>
-

@@ -162,6 +162,7 @@ li h1 {
   width: 30%;
   height: 20rem;
   display: flex;
+  flex-direction: column; /* Stellt sicher, dass die Elemente untereinander angeordnet werden */
   justify-content: center;
   align-items: center;
   background-color: #000000c4;
