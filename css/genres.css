@@ -21,3 +21,7 @@ select {
     margin-bottom: 20px;
     min-width: 250px;
 }
+
+canvas {
+    background-color: #000000; /* Schwarzer Hintergrund für den Kontrast der weißen Achsen */
+}

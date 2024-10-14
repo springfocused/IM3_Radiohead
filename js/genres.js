@@ -69,16 +69,46 @@ function createGenresChart(data) {
             scales: {
                 x: {
                     ticks: {
-                        maxRotation: 90, // Maximale Drehung
-                        minRotation: 90, // Feste 90° Drehung für vertikalen Text
+                        color: '#ffffff', // Farbe der X-Achse Schrift auf Weiß setzen
+                        maxRotation: 0, // Keine Drehung der X-Achsen-Beschriftung
                         font: {
-                            size: 24,  // Schriftgröße wie bei <h2>
-                            family: 'bangers',  // Schriftart
+                            size: 16,
+                            family: 'bangers',
+                        }
+                    },
+                    grid: {
+                        color: '#ffffff', // Weiße Linien für die X-Achse
+                    },
+                    title: {
+                        display: true,
+                        text: 'Genre',
+                        color: '#f2e206', // Textfarbe Weiß
+                        font: {
+                            size: 36,
+                            family: 'bangers',
                         }
                     }
                 },
                 y: {
-                    beginAtZero: true // Y-Achse beginnt bei 0
+                    beginAtZero: true, // Y-Achse beginnt bei 0
+                    ticks: {
+                        color: '#ffffff', // Farbe der Y-Achse Schrift auf Weiß setzen
+                    },
+                    grid: {
+                        color: '#ffffff', // Weiße Linien für die Y-Achse
+                    },
+                    title: {
+                        display: true,
+                        text: 'Times Played',
+                        color: '#f2e206', // Textfarbe Weiß
+                        font: {
+                            size: 36,
+                            family: 'bangers',
+                        },
+                        padding: {top: 10}, // Abstand nach oben
+                        position: 'center',
+                        rotation: 90, // Vertikale Ausrichtung des Y-Achsentitels
+                    }
                 }
             }
         }
@@ -87,4 +117,3 @@ function createGenresChart(data) {
 
 // Funktion zum Abrufen und Anzeigen der Genres-Daten aufrufen
 fetchData(); // Initialer Aufruf der Funktion um die Daten beim Laden der Seite zu holen
-
