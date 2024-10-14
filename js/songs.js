@@ -74,3 +74,4 @@ function displayData(data) {
 
 // Funktion zum Abrufen der Daten aufrufen
 fetchData();
+
