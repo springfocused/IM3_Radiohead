@@ -67,7 +67,6 @@ function getGenresFromTrack($track, $access_token) {
     return null; // Kein Genre gefunden, gibt NULL zurück
 }
 
-
 // Funktion zum Abrufen der Genres eines Künstlers
 function getArtistGenres($artist_id, $access_token) {
     $artist_url = "https://api.spotify.com/v1/artists/{$artist_id}";
@@ -84,8 +83,6 @@ function getArtistGenres($artist_id, $access_token) {
 
 
     $artist_info = json_decode($result, true);
-
-    print_r($artist_info);
     
     // Falls keine Genres vorhanden sind, null zurückgeben
     if (empty($artist_info['genres'])) {
@@ -132,6 +129,9 @@ foreach ($srf_data['songList'] as $song) {
     // Genre von Spotify abrufen
     $tracks = searchSong($title, $artist_name, $access_token);
 
+     // Die Spotify Track-ID speichern
+ $spotifyTrackId = $track['id'] ?? null; // Track ID von Spotify
+
     // Überprüfen, ob Tracks gefunden wurden
     if (!empty($tracks['tracks']['items'])) {
         $track = $tracks['tracks']['items'][0]; // Nimm den ersten Track
@@ -146,6 +146,7 @@ foreach ($srf_data['songList'] as $song) {
             'title' => $title,
             'isPlayingNow' => $song['isPlayingNow'],
             'artist' => $artist_name,
+            'spotifyTrackId' => $spotifyTrackId,
             'next_url' => null, // Hier könntest du eine URL setzen, falls erforderlich
             'genre' => $genres ?? null // Genre von Spotify
         ];
@@ -157,6 +158,7 @@ foreach ($srf_data['songList'] as $song) {
             'title' => $title,
             'isPlayingNow' => $song['isPlayingNow'],
             'artist' => $artist_name,
+            'spotifyTrackId' => null,
             'next_url' => null,
             'genre' =>  null // Kein Genre gefunden
         ];
@@ -167,4 +169,5 @@ return $transformedData; // Gibt die transformierten Daten zurück
 
 $genres = getGenresFromTrack($track, $access_token);
 
+print_r($spotifyTrackId);
 ?>

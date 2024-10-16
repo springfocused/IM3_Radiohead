@@ -35,22 +35,16 @@
     width: 20%;
 }
 
+/* AB HIER MEDIAQUERIES ALLGEMEIN */
 
+/*** Tablet ***/
+@media screen and (max-width: 820px) {
 
-#dropDown {
-    display: flex;
-    justify-content: end;
-    margin-top: 1rem;
-}
+    .artist-item {
+        padding: 0rem;
+    }
+    .artist-title, .song-artist {
+        width: 20%;
+    }
 
-select {
-    padding: 10px;
-    color: #000000;
-    font-size: 36px;
-    text-align: left;
-    font-family: 'Bangers', sans-serif;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    min-width: 250px;
 }
