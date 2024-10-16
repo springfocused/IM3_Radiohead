@@ -117,6 +117,11 @@ genresChartInstance = new Chart(genresChart, {
                     rotation: 90, // Vertikale Ausrichtung des Y-Achsentitels
                 }
             }
+        },
+        plugins: {
+            legend: {
+                display: false, // Legende ausblenden
+            }
         }
     }
 });
