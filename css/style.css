@@ -1,103 +1,139 @@
-body {
-    background-image: url('../images/background.png');
-    background-size: cover; /* Deckt den gesamten Hintergrund ab */
-    background-position: center; /* Bild wird zentriert */
-    background-repeat: repeat; /* Das Bild wiederholt sich nicht */
-    margin: 0;
-    padding-left: 4%;
-    padding-right: 4%;
-  }
-
-  @font-face {
-    font-family: 'Bangers';
-    src: url('../schriften/bangers.ttf') format('truetype');
-  }
-  
-  @font-face {
-    font-family: 'Digital';
-    src: url('../schriften/digital.ttf') format('truetype');
-  }
-  
-  @font-face {
-    font-family: 'Fresca';
-    src: url('../schriften/fresca.ttf') format('truetype');
-  }
-
-  h1 {
-    color: #f2e206;
-    font-size: 10vw;
-    text-align: left;
-    font-family: 'Bangers', sans-serif;
-  }
-  
-  h2 {
-    color: #f2e206;
-    font-size: 2vw;
-    text-align: left;
-    font-family: 'Bangers', sans-serif;
-  }
-  
-  h3 {
-    color: #f2e206;
-    font-size: 3vw;
-    text-align: left;
-    font-family: 'Digital', sans-serif;
-  }
-  
-  p {
-    color: #fff;
-    font-size: 2vw;
-    text-align: left;
-    font-family: 'Fresca', sans-serif;
-  }
- 
-  
-  /* Titel links */
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 90%;
-  padding: 20px 0;
-  margin: 0 auto;
+/* Stellt sicher, dass alles im Viewport richtig skaliert wird */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* Burger-Menü rechts */
+body {
+    background-image: url('../images/background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; /* Das Bild wiederholt sich nicht */
+    margin: 0;
+    padding: 0;
+    font-family: 'Fresca', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Volle Höhe des Viewports */
+}
+
+/* Allgemeines Flexbox-Layout */
+.flex-container {
+  display: flex;                /* Flexbox aktivieren */
+  justify-content: space-between; /* Elemente mit Abstand dazwischen platzieren */
+  align-items: stretch;         /* Elemente auf gleiche Höhe bringen */
+  gap: 20px;                    /* Abstand zwischen den Elementen */
+}
+
+/* Zentriert den Inhalt innerhalb des Viewports */
+.container {
+    width: 100%;
+    max-width: 1200px; /* Maximalbreite des Containers */
+    padding: 0 2%; /* Symmetrisches Padding links und rechts */
+    margin: 0 auto;
+}
+
+/* Allgemeine Dropdown-Stile */
+select {
+  padding: 10px;
+  color: #000000;
+  font-size: 36px;
+  text-align: left;
+  font-family: 'Bangers', sans-serif;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  min-width: 250px;
+}
+
+/* Allgemeiner Canvas-Stil */
+canvas {
+  background-color: #000000; /* Schwarzer Hintergrund für den Kontrast der weißen Achsen */
+}
+
+/* Textzentralelemente */
+h1, h2, h3, p {
+    color: #f2e206;
+    text-align: center; /* Zentriert den Text */
+    margin: 20px 0;
+}
+
+h1 {
+    font-size: 10vw;
+    font-family: 'Bangers', sans-serif;
+}
+
+h2 {
+    font-size: 2vw;
+    font-family: 'Bangers', sans-serif;
+}
+
+h3 {
+    font-size: 3vw;
+    font-family: 'Digital', sans-serif;
+}
+
+p {
+    color: #fff;
+    font-size: 2vw;
+    font-family: 'Fresca', sans-serif;
+}
+
+/* Navigation-Stil */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px; /* Maximalbreite */
+    margin: 0 auto;
+    padding: 20px 2%;
+}
+
+/* Menü-Einstellungen */
 .menu {
-  display: none;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 50%;
-  z-index: 10;
-  background-color: black;
-  flex-direction: column;
-  padding: 20px;
-  transition: transform 0.3s ease; /* Für Animation beim Öffnen */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 50%;
+    z-index: 100; /* Höherer z-index für bessere Sichtbarkeit */
+    background-color: black;
+    flex-direction: column;
+    padding: 20px;
+    opacity: 0; /* Anfangs unsichtbar */
+    transform: translateX(100%); /* Menu versteckt außerhalb des Bildschirms */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Sanfte Animationen */
 }
 
 .menu a {
-  color: #ffffff;            /* Normale Linkfarbe (weiß) */
-  text-decoration: none;    /* Entfernt die Unterstreichung */
-  font-size: 5rem;          /* Schriftgröße */
-  font-family: 'Bangers', sans-serif; /* Schriftart */
-  padding: 0.25rem;            /* Innenabstand für besseren Klickbereich */
-  display: block;           /* Blockelement */
-  text-align: right;      
-  margin-top: 3rem;
-  margin-right: 2rem;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 5rem;
+    font-family: 'Bangers', sans-serif;
+    padding: 0.25rem;
+    text-align: right;
+    margin-top: 3rem;
+    margin-right: 2rem;
 }
 
-/* Aktiviertes Menü */
+/* Aktives Menü */
 .menu.active {
-  display: flex;
+    display: flex;
+    align-items: flex-start; /* Menü von oben anfangen */
+    opacity: 1; /* Sichtbar */
+    transform: translateX(0); /* Menü hereinbewegen */
 }
 
-/* Menüformatierung */
+/* Liste im Menü */
 ul {
-  color: #ffffff;
-  list-style: none;
+    color: #ffffff;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 li h1 {
@@ -310,6 +346,42 @@ li h1 {
 
 @media only screen and (max-width: 767px) and (orientation: portrait) {
     
+    h2 {
+        font-size: 4vw;
+    }
 
+    h3 {
+        font-size: 2.5vw;
+    }
 
+    p {
+        font-size: 1.8vw;
+    }
+
+    .menu a {
+        font-size: 4rem;
+    }
+}
+
+/* Weitere Anpassungen für sehr kleine Bildschirme */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 12vw;
+    }
+    
+    h2 {
+        font-size: 6vw;
+    }
+
+    h3 {
+        font-size: 4vw;
+    }
+
+    p {
+        font-size: 3vw;
+    }
+
+    .menu a {
+        font-size: 3rem;
+    }
 }
