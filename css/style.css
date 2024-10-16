@@ -25,28 +25,28 @@ body {
 
   h1 {
     color: #f2e206;
-    font-size: 150px;
+    font-size: 10vw;
     text-align: left;
     font-family: 'Bangers', sans-serif;
   }
   
   h2 {
     color: #f2e206;
-    font-size: 36px;
+    font-size: 2vw;
     text-align: left;
     font-family: 'Bangers', sans-serif;
   }
   
   h3 {
     color: #f2e206;
-    font-size: 64px;
+    font-size: 3vw;
     text-align: left;
     font-family: 'Digital', sans-serif;
   }
   
   p {
     color: #fff;
-    font-size: 32px;
+    font-size: 2vw;
     text-align: left;
     font-family: 'Fresca', sans-serif;
   }
@@ -146,7 +146,8 @@ li h1 {
   align-items: left;
   background-color: #000000c4;
   border-radius: 15px;      /* Abgerundete Ecken */
-  padding: 20px; 
+  padding: 2%; 
+  margin-right: 15%;
 }
 
 #genresChart {
@@ -168,4 +169,17 @@ li h1 {
   background-color: #000000c4;
   border-radius: 15px;      /* Abgerundete Ecken */
   padding: 20px; 
+}
+
+
+
+/* iPads im Querformat (Landscape) */
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+}
+
+
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+    
+
+
 }

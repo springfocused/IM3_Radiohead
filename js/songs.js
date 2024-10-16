@@ -79,3 +79,6 @@ const limitedData = data.slice(0, 20);
 
 // Funktion zum Abrufen der Daten beim Laden der Seite aufrufen
 fetchData();
+
+
+
