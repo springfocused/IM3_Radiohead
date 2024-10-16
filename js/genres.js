@@ -52,67 +52,75 @@ function createGenresChart(data) {
             genresChartInstance.destroy(); // Zerstöre das bestehende Chart-Objekt
         }
 
-    // Chart.js Balkendiagramm erstellen
-    genresChartInstance = new Chart(genresChart, {
-        type: 'bar', // Balkendiagramm
-        data: {
-            labels: labels, // Labels für die Genres
-            datasets: [{
-                label: 'Abgespielte Songs',
-                data: playCounts, // Werte für die Genres
-                backgroundColor: '#f2e206', // Gelbe Balkenfarbe
-                borderColor: '#f2e206', // Gelber Rand
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                x: {
-                    ticks: {
-                        color: '#ffffff', // Farbe der X-Achse Schrift auf Weiß setzen
-                        maxRotation: 0, // Keine Drehung der X-Achsen-Beschriftung
-                        font: {
-                            size: 16,
-                            family: 'bangers',
-                        }
-                    },
-                    grid: {
-                        color: '#ffffff', // Weiße Linien für die X-Achse
-                    },
-                    title: {
-                        display: true,
-                        text: 'Genre',
-                        color: '#f2e206', // Textfarbe Weiß
-                        font: {
-                            size: 36,
-                            family: 'bangers',
-                        }
+// Chart.js Balkendiagramm erstellen
+genresChartInstance = new Chart(genresChart, {
+    type: 'bar', // Balkendiagramm
+    data: {
+        labels: labels, // Labels für die Genres
+        datasets: [{
+            label: 'Abgespielte Songs',
+            data: playCounts, // Werte für die Genres
+            backgroundColor: '#f2e206', // Gelbe Balkenfarbe
+            borderColor: '#f2e206', // Gelber Rand
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            x: {
+                ticks: {
+                    color: '#ffffff', // Farbe der X-Achse Schrift auf Weiß setzen
+                    maxRotation: 60, // Maximale Rotation der X-Achsen-Beschriftung (60 Grad)
+                    minRotation: 60, // Minimale Rotation der X-Achsen-Beschriftung (60 Grad)
+                    font: {
+                        size: 18,
+                        family: 'bangers',
                     }
                 },
-                y: {
-                    beginAtZero: true, // Y-Achse beginnt bei 0
-                    ticks: {
-                        color: '#ffffff', // Farbe der Y-Achse Schrift auf Weiß setzen
-                    },
-                    grid: {
-                        color: '#ffffff', // Weiße Linien für die Y-Achse
-                    },
-                    title: {
-                        display: true,
-                        text: 'Times Played',
-                        color: '#f2e206', // Textfarbe Weiß
-                        font: {
-                            size: 36,
-                            family: 'bangers',
-                        },
-                        padding: {top: 10}, // Abstand nach oben
-                        position: 'center',
-                        rotation: 90, // Vertikale Ausrichtung des Y-Achsentitels
+                grid: {
+                    display: false, // Keine horizontalen Linien für die X-Achse
+                },
+                border: {
+                    color: '#ffffff' // Nur eine Linie für die X-Achse
+                },
+                title: {
+                    display: true,
+                    text: 'Genre',
+                    color: '#f2e206', // Textfarbe Weiß
+                    font: {
+                        size: 36,
+                        family: 'bangers',
                     }
+                }
+            },
+            y: {
+                beginAtZero: true, // Y-Achse beginnt bei 0
+                ticks: {
+                    color: '#ffffff', // Farbe der Y-Achse Schrift auf Weiß setzen
+                },
+                grid: {
+                    display: false, // Keine vertikalen Linien für die Y-Achse
+                },
+                border: {
+                    color: '#ffffff' // Nur eine Linie für die Y-Achse
+                },
+                title: {
+                    display: true,
+                    text: 'Times Played',
+                    color: '#f2e206', // Textfarbe Weiß
+                    font: {
+                        size: 36,
+                        family: 'bangers',
+                    },
+                    padding: { top: 10 }, // Abstand nach oben
+                    position: 'center',
+                    rotation: 90, // Vertikale Ausrichtung des Y-Achsentitels
                 }
             }
         }
-    });
+    }
+});
+
 }
 
 // Funktion zum Abrufen und Anzeigen der Genres-Daten aufrufen
