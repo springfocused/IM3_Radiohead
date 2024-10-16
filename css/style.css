@@ -138,7 +138,7 @@ li h1 {
 /*Allgemeines Styling */
 
 .container {
-  width: 100%;
+  width: 96%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -147,7 +147,7 @@ li h1 {
   background-color: #000000c4;
   border-radius: 15px;      /* Abgerundete Ecken */
   padding: 2%; 
-  margin-right: 15%;
+  margin-top: 2%;
 }
 
 #genresChart {
@@ -170,6 +170,136 @@ li h1 {
   border-radius: 15px;      /* Abgerundete Ecken */
   padding: 20px; 
 }
+
+#playSongButton {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 30px;
+  text-align: center;
+  line-height: 60px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+  z-index: 15;
+  position: absolute;
+  left: 69.75%;
+  top: 40%;
+}
+
+#playSongButton::before {
+  content: '';  /* Platzhalter für das Symbol */
+  display: inline-block;
+  border-style: solid;
+  border-width: 15px 0 15px 25px;  /* Play-Symbol: Dreieck */
+  border-color: transparent transparent transparent white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#playSongButton.stop::before {
+  content: '';
+  border-width: 0;
+  width: 20px;
+  height: 20px;
+  background-color: white;  /* Stop-Symbol: Quadrat */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#playSongButton:hover {
+  background-color: #444;
+}
+
+#spotifyIframe {
+  width: 0;
+  height: 0;
+  border: none;
+  visibility: hidden;
+}
+
+/* Der Container, der das Radio-Bild und den Songtext enthält */
+.radio-container {
+  position: relative; /* Relativer Container als Bezugspunkt */
+  width: fit-content; /* Passt sich dem Inhalt an */
+  margin: 0 auto; /* Zentriert den Container auf der Seite */
+}
+
+/* Positioniere #currentSong relativ zum .radio-container */
+#currentSong {
+  position: absolute; /* Absolut positioniert relativ zum .radio-container */
+  top: 36%; /* Abstand von oben, anpassbar je nach gewünschter Position */
+  left: 50%; /* Zentriert den Text horizontal */
+  transform: translateX(-60%); /* Exakte Zentrierung */
+  z-index: 10; /* Höher als das Radio-Bild */
+  overflow: hidden; /* Verhindert, dass der Text aus dem Container herausragt */
+  white-space: nowrap; /* Verhindert, dass der Text umbricht */
+  text-align: center; /* Zentriert den Text */
+  padding: 10px;
+  width: 80%; /* Passt sich der Containerbreite an */
+}
+
+/* Stil für den Songtitel */
+#currentSong h3 {
+  display: inline-block;
+  animation: flickerRadio 3s infinite; /* Flicker-Effekt */
+  font-size: 2rem; /* Schriftgröße */
+  color: #f2e206; /* Gelbe Farbe */
+  font-family: 'Digital', sans-serif; /* Monospace-Schriftart */
+}
+
+
+
+/* Keyframes für den Flicker-Effekt */
+@keyframes flickerRadio {
+  0% {
+    opacity: 1;
+    text-shadow: 0 0 10px rgba(242, 226, 6, 0.75);
+  }
+  5% {
+    opacity: 0.5;
+    text-shadow: none;
+  }
+  10% {
+    opacity: 1;
+    color: #f2e206; /* Kurz flackernde Farbänderung */
+  }
+  15% {
+    opacity: 0.8;
+  }
+  25% {
+    opacity: 1;
+    color: #f2e206;
+  }
+  35% {
+    opacity: 0.6;
+    color: #f2e206;
+  }
+  50% {
+    opacity: 1;
+  }
+  65% {
+    opacity: 0.3;
+  }
+  75% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 
 
 

@@ -10,22 +10,73 @@ function toggleMenu() {
     burger.classList.toggle('open');
 }
 
-// URL of the API you want to fetch data from
-const url = 'https://il.srgssr.ch/integrationlayer/2.0/srf/songList/radio/byChannel/69e8ac16-4327-4af4-b873-fd5cd6e895a7';
+// URL der API zum Abrufen des aktuell gespielten Songs
+const songUrl = 'https://il.srgssr.ch/integrationlayer/2.0/srf/songList/radio/byChannel/69e8ac16-4327-4af4-b873-fd5cd6e895a7';
 
-// Function to fetch data and log it to the console
-async function fetchDepartures() {
+let currentSongId = null; // Globale Variable für die Spotify Track ID
+
+// Funktion zum Abrufen des aktuell gespielten Songs
+async function fetchCurrentSong() {
   try {
-    const response = await fetch(url); // Fetch data from the API
+    const response = await fetch(songUrl);
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`); // Corrected string interpolation
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const data = await response.json(); // Parse the JSON from the response
-    console.log(data); // Log the fetched data to the console
+
+    const data = await response.json();
+    const currentSong = data.songList.find(song => song.isPlayingNow === true); // Suche nach isPlayingNow == true
+
+    const songDisplay = document.getElementById('currentSong'); // Verwende das Element mit der ID 'currentSong'
+    songDisplay.innerHTML = ''; // Inhalt zurücksetzen
+
+    if (currentSong) {
+      // Setze die Spotify Track ID des aktuellen Songs (falls verfügbar)
+      currentSongId = currentSong.spotifyTrackId || '4cOdK2wGLETKBW3PvgPWqT'; // Beispiel Fallback-ID, falls keine Spotify-ID verfügbar ist
+
+      // Zeige nur den Titel des aktuellen Songs
+      songDisplay.innerHTML = `
+        <h3>Jetzt laeuft: <strong>${currentSong.title}</strong></h3>
+      `;
+    } else {
+      // Setze currentSongId auf null, wenn kein Song läuft
+      currentSongId = null;
+      // Zeige, dass kein Song läuft
+      songDisplay.innerHTML = '<h3>Momentan wird kein Lied gespielt</h3>';
+    }
+
   } catch (error) {
-    console.error('Error fetching data:', error); // Log errors to the console
+    console.error('Error fetching current song:', error);
+    document.getElementById('currentSong').innerHTML = '<p>Fehler beim Laden des aktuellen Songs.</p>';
   }
 }
+
+document.getElementById('playSongButton').addEventListener('click', function() {
+    const spotifyIframe = document.getElementById('spotifyIframe');
+    const playButton = this;
+
+    if (currentSongId) {
+        // Check if the button is in "play" state
+        if (playButton.classList.contains('play')) {
+            playButton.classList.remove('play');
+            playButton.classList.add('stop');
+            // Play the current song using the Spotify iframe
+            spotifyIframe.src = `https://open.spotify.com/embed/track/${currentSongId}`;
+        } else {
+            playButton.classList.remove('stop');
+            playButton.classList.add('play');
+            // Stop the song (clear the iframe src)
+            spotifyIframe.src = ''; 
+        }
+    } else {
+        alert('Es wird gerade kein Song abgespielt.');
+    }
+});
+
+// Abrufen des aktuellen Songs beim Laden der Seite
+fetchCurrentSong();
+
+
+
 
 // Elemente abrufen
 const smallGenresChart = document.getElementById('smallGenresChart'); // Canvas-Element für das kleine Diagramm

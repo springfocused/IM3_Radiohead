@@ -44,7 +44,18 @@
 
     <main>
         <div><h1>SRF INSPECTOR</h1></div>
-        <div><img src="images/radio.png" alt="Radio" class="radio-image"></div>
+        <div class="radio-container" style="position: relative;"> 
+            <div id="currentSong"><h3>Aktueller Song</h3> </div>
+            <button id="playSongButton" class="play"></button>
+            <img src="images/radio.png" alt="Radio" class="radio-image">
+           
+            <div class="spotify-embed">
+                <iframe id="spotifyIframe" src="" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+            </div>
+
+        </div>
+        
+        
 
         <div id="preview"> 
            <article class="containerSmall">
@@ -64,6 +75,10 @@
                 </div>
             </article>
         </div>
+
+        <article class="container">
+            <h2>Journalistischer Aspekt</h2>
+        </article>
     </main>
     
     <script src="js/script.js"></script>
