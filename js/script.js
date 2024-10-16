@@ -14,6 +14,24 @@ function toggleMenu() {
 const songUrl = 'https://il.srgssr.ch/integrationlayer/2.0/srf/songList/radio/byChannel/69e8ac16-4327-4af4-b873-fd5cd6e895a7';
 
 let currentSongId = null; // Globale Variable für die Spotify Track ID
+let spotifyAccessToken = null; // Spotify Access Token
+
+// Funktion zum Abrufen des Spotify Access Tokens (über dein PHP-Skript)
+async function fetchSpotifyAccessToken() {
+    try {
+      const response = await fetch('get_spotify_token.php'); // PHP-Skript, das das Token zurückgibt
+      const data = await response.json();
+      
+      spotifyAccessToken = data.access_token;
+  
+      // Logge den Access Token, um zu überprüfen, ob er korrekt abgerufen wird
+      console.log('Spotify Access Token:', spotifyAccessToken);
+      
+    } catch (error) {
+      console.error('Fehler beim Abrufen des Spotify Access Tokens:', error);
+    }
+  }
+  
 
 // Funktion zum Abrufen des aktuell gespielten Songs
 async function fetchCurrentSong() {
@@ -30,13 +48,16 @@ async function fetchCurrentSong() {
     songDisplay.innerHTML = ''; // Inhalt zurücksetzen
 
     if (currentSong) {
-      // Setze die Spotify Track ID des aktuellen Songs (falls verfügbar)
-      currentSongId = currentSong.spotifyTrackId || '4cOdK2wGLETKBW3PvgPWqT'; // Beispiel Fallback-ID, falls keine Spotify-ID verfügbar ist
+      // Überprüfen, ob die Spotify Track ID in den Daten vorhanden ist
+      if (currentSong.spotifyTrackId) {
+        currentSongId = currentSong.spotifyTrackId; // Spotify-Track-ID direkt verwenden
+      } else {
+        // Falls keine Spotify-Track-ID vorhanden ist, suche den Song bei Spotify
+        currentSongId = await searchSpotifyTrack(currentSong.title, currentSong.artist);
+      }
 
-      // Zeige nur den Titel des aktuellen Songs
-      songDisplay.innerHTML = `
-        <h3>Jetzt laeuft: <strong>${currentSong.title}</strong></h3>
-      `;
+      // Zeige den Titel des aktuellen Songs an
+      songDisplay.innerHTML = `<h3>Jetzt laeuft: <strong>${currentSong.title}</strong></h3>`;
     } else {
       // Setze currentSongId auf null, wenn kein Song läuft
       currentSongId = null;
@@ -50,6 +71,35 @@ async function fetchCurrentSong() {
   }
 }
 
+// Funktion zum Suchen eines Spotify-Songs anhand des Titels und Künstlers
+async function searchSpotifyTrack(title, artist) {
+    const query = encodeURIComponent(`${title} ${artist}`);
+    const spotifySearchUrl = `https://api.spotify.com/v1/search?q=${query}&type=track&limit=1`;
+  
+    try {
+      const response = await fetch(spotifySearchUrl, {
+        headers: {
+          'Authorization': `Bearer ${spotifyAccessToken}` // Spotify Access Token für die Anfrage
+        }
+      });
+  
+      const data = await response.json();
+  
+      // Überprüfen, ob 'tracks' und 'items' existieren, bevor darauf zugegriffen wird
+      if (data && data.tracks && data.tracks.items && data.tracks.items.length > 0) {
+        return data.tracks.items[0].id; // Rückgabe der gefundenen Spotify-Track-ID
+      } else {
+        console.log('Kein Song auf Spotify gefunden');
+        return null;
+      }
+    } catch (error) {
+      console.error('Fehler bei der Spotify-Suche:', error);
+      return null;
+    }
+  }
+  
+
+// Event Listener für den Play-Button
 document.getElementById('playSongButton').addEventListener('click', function() {
     const spotifyIframe = document.getElementById('spotifyIframe');
     const playButton = this;
@@ -72,8 +122,10 @@ document.getElementById('playSongButton').addEventListener('click', function() {
     }
 });
 
-// Abrufen des aktuellen Songs beim Laden der Seite
-fetchCurrentSong();
+// Zuerst den Access Token holen, dann den aktuellen Song abrufen
+fetchSpotifyAccessToken().then(() => {
+  fetchCurrentSong();
+});
 
 
 
