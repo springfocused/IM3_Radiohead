@@ -13,7 +13,7 @@ function toggleMenu() {
     burger.classList.toggle('open');
 }
 
-// Event-Listener für Dropdown-Auswahl
+/// Event-Listener für Dropdown-Auswahl
 dropdown.addEventListener('change', fetchData); // Funktion wird beim Ändern des Dropdowns aufgerufen
 
 // Define an asynchronous function to fetch data from the endpoint
@@ -36,8 +36,8 @@ async function fetchData() {
         // Daten im Diagramm anzeigen
         createGenresChart(data);
     } catch (error) {
-               // Log any error in the console
-               console.error('Error fetching genres:', error);
+        // Log any error in the console
+        console.error('Error fetching genres:', error);
     }
 }
 
@@ -47,25 +47,16 @@ function createGenresChart(data) {
     const labels = data.map(item => item.genre); // Genres als Labels
     const playCounts = data.map(item => item.play_count); // Abgespielte Songs als Werte
 
-        // Überprüfen, ob das Chart-Objekt bereits existiert und es aktualisieren
-        if (genresChartInstance) {
-            genresChartInstance.destroy(); // Zerstöre das bestehende Chart-Objekt
-        }
+    // Überprüfen, ob das Chart-Objekt bereits existiert und es aktualisieren
+    if (genresChartInstance) {
+        genresChartInstance.destroy(); // Zerstöre das bestehende Chart-Objekt
+    }
 
-// Chart.js Balkendiagramm erstellen
-genresChartInstance = new Chart(genresChart, {
-    type: 'bar', // Balkendiagramm
-    data: {
-        labels: labels, // Labels für die Genres
-        datasets: [{
-            label: 'Abgespielte Songs',
-            data: playCounts, // Werte für die Genres
-            backgroundColor: '#f2e206', // Gelbe Balkenfarbe
-            borderColor: '#f2e206', // Gelber Rand
-            borderWidth: 1
-        }]
-    },
-    options: {
+    // Media Query für kleine Bildschirme
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+
+    // Standard-Chart-Optionen für größere Bildschirme
+    let chartOptions = {
         scales: {
             x: {
                 ticks: {
@@ -74,7 +65,7 @@ genresChartInstance = new Chart(genresChart, {
                     minRotation: 60, // Minimale Rotation der X-Achsen-Beschriftung (60 Grad)
                     font: {
                         size: 18,
-                        family: 'bangers',
+                        family: 'bangers', // Bangers-Schriftart setzen
                     }
                 },
                 grid: {
@@ -89,7 +80,7 @@ genresChartInstance = new Chart(genresChart, {
                     color: '#f2e206', // Textfarbe Weiß
                     font: {
                         size: 36,
-                        family: 'bangers',
+                        family: 'bangers', // Bangers-Schriftart
                     }
                 }
             },
@@ -97,6 +88,9 @@ genresChartInstance = new Chart(genresChart, {
                 beginAtZero: true, // Y-Achse beginnt bei 0
                 ticks: {
                     color: '#ffffff', // Farbe der Y-Achse Schrift auf Weiß setzen
+                    font: {
+                        family: 'bangers', // Bangers-Schriftart
+                    }
                 },
                 grid: {
                     display: false, // Keine vertikalen Linien für die Y-Achse
@@ -110,7 +104,7 @@ genresChartInstance = new Chart(genresChart, {
                     color: '#f2e206', // Textfarbe Weiß
                     font: {
                         size: 36,
-                        family: 'bangers',
+                        family: 'bangers', // Bangers-Schriftart
                     },
                     padding: { top: 10 }, // Abstand nach oben
                     position: 'center',
@@ -123,8 +117,101 @@ genresChartInstance = new Chart(genresChart, {
                 display: false, // Legende ausblenden
             }
         }
+    };
+
+    // Wenn die Media Query zutrifft, passe die Chart-Optionen an
+    if (mediaQuery.matches) {
+        chartOptions = {
+            scales: {
+                y: {
+                    beginAtZero: true, // Y-Achse beginnt bei 0
+                    ticks: {
+                        color: '#ffffff', // Farbe der Y-Achse Schrift auf Weiß setzen
+                        font: {
+                            size: 15, // Größe der Schrift für kleine Bildschirme
+                            family: 'bangers', // Bangers-Schriftart setzen
+                        }
+                    },
+                    grid: {
+                        display: false, // Keine vertikalen Linien für die Y-Achse
+                    },
+                    border: {
+                        color: '#ffffff' // Nur eine Linie für die Y-Achse
+                    },
+                    title: {
+                        display: true,
+                        text: 'Genres',
+                        color: '#f2e206', // Textfarbe Weiß
+                        font: {
+                            size: 24,
+                            family: 'bangers', // Bangers-Schriftart
+                        },
+                        padding: { top: 10 }, // Abstand nach oben
+                        position: 'top', // Jetzt über der Y-Achse
+                        rotation: -15, // Keine Rotation des Y-Achsentitels
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: '#ffffff', // Farbe der Y-Achse Schrift auf Weiß setzen
+                        font: {
+                            size: 15, // Schriftgröße
+                            family: 'bangers', // Schriftart
+                        }
+                    },
+                    grid: {
+                        display: false, // Keine horizontalen Linien für die X-Achse
+                    },
+                    border: {
+                        color: '#ffffff' // Nur eine Linie für die X-Achse
+                    },
+                    title: {
+                        display: true,
+                        text: 'Times Played',
+                        color: '#f2e206', // Textfarbe Weiß
+                        font: {
+                            size: 24,
+                            family: 'bangers', // Bangers-Schriftart
+                        }
+                    }
+                }
+            },
+            indexAxis: 'y', // Ändert die Ausrichtung der Balken (horizontal)
+            plugins: {
+                legend: {
+                    display: false, // Legende ausblenden
+                }
+            },
+            elements: {
+                bar: {
+                    barThickness: 40, // Nur in den Media Queries anwenden
+                }
+            }
+        };
+
+        genresChart.style.height = '500px';
+        
     }
-});
+
+    // Chart.js Balkendiagramm erstellen
+    genresChartInstance = new Chart(genresChart, {
+        type: 'bar', // Balkendiagramm
+        data: {
+            labels: labels, // Labels für die Genres
+            datasets: [{
+                label: 'Abgespielte Songs',
+                data: playCounts, // Werte für die Genres
+                backgroundColor: '#f2e206', // Gelbe Balkenfarbe
+                borderColor: '#f2e206', // Gelber Rand
+                borderWidth: 1
+            }]
+        },
+        options: {
+            ...chartOptions,
+            maintainAspectRatio: false, // Stellt sicher, dass die Höhe angepasst werden kann
+        }
+    });
+
 
 }
 
