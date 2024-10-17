@@ -24,11 +24,21 @@
   position: absolute;
   left: 70.25%;
   top: 34%;
+  animation: pulse 1.5s infinite ease-in-out; /* Animation */
   }
 
-  #playSongButton:hover {
-    transform: scale(1.5); /* Vergrößert das Objekt um 150%, behält das Seitenverhältnis */
+  /* Pulsierende Animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1); /* Normalgröße */
   }
+  50% {
+    transform: scale(1.1); /* Leicht vergrößern */
+  }
+  100% {
+    transform: scale(1); /* Zurück zur Normalgröße */
+  }
+}
 
   #playSongButton::before {
   content: '';  /* Platzhalter für das Symbol */
@@ -68,6 +78,13 @@
     height: fit-content;
   }
   
+
+  /* Iframe initial ausblenden */
+#spotifyIframe {
+  width: 110%;
+  height: fit-content;
+}
+
   /* Der Container, der das Radio-Bild und den Songtext enthält */
   .radio-container {
   position: relative; /* Relativer Container als Bezugspunkt */

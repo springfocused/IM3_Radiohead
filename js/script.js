@@ -9,7 +9,6 @@ function toggleMenu() {
     menu.classList.toggle('active');
     burger.classList.toggle('open');
 }
-
 // URL der API zum Abrufen des aktuell gespielten Songs (via Backend)
 const songUrl = 'https://il.srgssr.ch/integrationlayer/2.0/srf/songList/radio/byChannel/69e8ac16-4327-4af4-b873-fd5cd6e895a7'; // Backend-URL für die Song-Daten
 
@@ -30,7 +29,7 @@ async function fetchCurrentSong() {
     songDisplay.innerHTML = '';
 
     if (currentSong) {
-      // Jetzt wird die Spotify Track ID verwendet use the function getSpotifyTrackIdFromBackend
+      // Jetzt wird die Spotify Track ID verwendet
       currentSongId = await getSpotifyTrackIdFromBackend(currentSong.title, currentSong.artist.name);
       console.log(currentSong.artist.name);
       console.log('Current Song ID from fetchCurrentSong():', currentSong);
@@ -52,6 +51,13 @@ async function fetchCurrentSong() {
     document.getElementById('currentSong').innerHTML = '<p>Fehler beim Laden des aktuellen Songs.</p>';
   }
 }
+
+// Setze ein Intervall, um die API alle 30 Sekunden abzufragen
+setInterval(fetchCurrentSong, 30000); 
+
+// Initialer Aufruf, um die aktuellen Daten sofort zu laden, ohne auf das Intervall zu warten
+fetchCurrentSong();
+
 
 
 // Funktion zum Abrufen der Spotify Track ID über das Backend (transform.php)
@@ -305,100 +311,120 @@ async function fetchTopArtist() {
     }
 }
 
-// Funktion zum Erstellen des kleinen Diagramms mit Künstler-Daten
 function createSmallArtistChart(data) {
-  // Hier wird die Reihenfolge geändert: 2. Rang, 1. Rang, 3. Rang
   const sortedData = [
-      data[1], // 2. Rang
-      data[0], // 1. Rang
-      data[2]  // 3. Rang
+    data[1], // 2. Rang
+    data[0], // 1. Rang
+    data[2], // 3. Rang
   ];
 
-  // Daten für das Diagramm vorbereiten
-  const labels = sortedData.map(item => item.artist); // Labels für die Künstler
-  const playCounts = sortedData.map(item => item.play_count); // Abgespielte Songs als Werte
+  const labels = sortedData.map((item) => item.artist); // Labels für die Künstler
+  const playCounts = sortedData.map((item) => item.play_count); // Abgespielte Songs als Werte
 
-  // Plugin zum Hinzufügen der Rangnummern
   const rankPlugin = {
-      id: 'rankPlugin',
-      afterDatasetsDraw: (chart) => {
-          const ctx = chart.ctx;
-          const dataset = chart.getDatasetMeta(0); // Das erste Dataset
-          ctx.save();
-          ctx.font = '3vw bangers'; // Schriftart und Größe des Texts
-          ctx.fillStyle = 'black'; // Textfarbe (hier schwarz)
+    id: "rankPlugin",
+    afterDatasetsDraw: (chart) => {
+      const ctx = chart.ctx;
+      const dataset = chart.getDatasetMeta(0); // Das erste Dataset
+      ctx.save();
+      ctx.font = "2vw bangers"; // Schriftart und Größe des Texts, angepasst für kleinere Bildschirme
+      ctx.fillStyle = "black"; // Textfarbe
 
-          // Benutzerdefinierte Reihenfolge der Ränge
-          const ranks = ['2.', '1.', '3.'];
+      const ranks = ["2.", "1.", "3."];
 
-          dataset.data.forEach((bar, index) => {
-              const rank = ranks[index]; // Rang basierend auf der angepassten Reihenfolge
-              const x = bar.x + 8; // X-Position des Balkens
-              const y = bar.y + 60; // Y-Position knapp oberhalb des Balkens
+      dataset.data.forEach((bar, index) => {
+        const rank = ranks[index]; // Rang basierend auf der angepassten Reihenfolge
+        const x = bar.x; // X-Position des Balkens
+        const y = bar.y + bar.height + 25; // Y-Position unterhalb des Balkens
 
-              // Rangnummer an der Stelle des Balkens rendern
-              ctx.fillText(rank, x - 20, y); // Text platzieren
-          });
+        ctx.fillText(rank, x - 10, y); // Text unter dem Balken platzieren
+      });
 
-          ctx.restore();
-      }
+      ctx.restore();
+    },
   };
 
   // Chart.js Balkendiagramm erstellen
-  new Chart(smallArtistChart, {
-      type: 'bar', // Balkendiagramm
-      data: {
-          labels: labels, // Labels für die Künstler
-          datasets: [{
-              label: 'Top 3 Artists',
-              data: playCounts, // Werte für die Künstler
-              backgroundColor: '#f2e206', // Gelbe Balkenfarbe
-              borderColor: '#f2e206', // Gelber Rand
-              borderWidth: 1
-          }]
-      },
-      options: {
-          scales: {
-              x: {
-                  ticks: {
-                      color: '#ffff', 
-                      maxRotation: 0, // Maximale Drehung
-                      font: {
-                          size: 18,  // Kleinere Schriftgröße
-                          family: 'bangers',  // Schriftart
-                      }
-                  },
-                  grid: {
-                      display: false, // Keine horizontalen Linien für die X-Achse
-                  },
-                  border: {
-                      display: false, // Keine Linie für die X-Achse
-                  }
-              },
-              y: {
-                  beginAtZero: false, // Y-Achse beginnt nicht bei 0
-                  min: 10, // Mindestwert für die Y-Achse
-                  ticks: {
-                      display: false, // Y-Achse Schrift ausblenden
-                  },
-                  grid: {
-                      display: false, // Keine vertikalen Linien für die Y-Achse
-                  },
-                  border: {
-                      display: false, // Keine Linie für die Y-Achse
-                  }
-              }
+  const chartInstance = new Chart(smallArtistChart, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Top 3 Artists",
+          data: playCounts,
+          backgroundColor: "#f2e206", // Gelbe Balkenfarbe
+          borderColor: "#f2e206", // Gelber Rand
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        x: {
+          ticks: {
+            color: "#ffff", 
+            maxRotation: 0,
+            font: {
+              size: 14, // Kleinere Schriftgröße für die X-Achse
+              family: "bangers",
+            },
           },
-          plugins: {
-              legend: {
-                  display: false, // Legende ausblenden
-              }
-          }
+          grid: {
+            display: false, // Keine horizontalen Linien für die X-Achse
+          },
+          border: {
+            display: false, // Keine Linie für die X-Achse
+          },
+          // Standardwerte für größere Bildschirme
+          barPercentage: 0.8,
+          categoryPercentage: 0.7,
+        },
+        y: {
+          beginAtZero: false,
+          min: 10,
+          ticks: {
+            display: false,
+          },
+          grid: {
+            display: false,
+          },
+          border: {
+            display: false,
+          },
+        },
       },
-      plugins: [rankPlugin] // Plugin hinzufügen
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+    },
+    plugins: [rankPlugin], // Rang Plugin
   });
-}
 
+  // Responsive Anpassungen für die Balken bei bestimmten Bildschirmgrößen
+  const mediaQuery = window.matchMedia("(max-width: 820px) and (min-width: 576px)");
+  function handleMediaQuery(e) {
+    if (e.matches) {
+      // Entferne den Abstand zwischen den Balken, wenn die Bildschirmbreite zwischen 576px und 820px liegt
+      chartInstance.options.scales.x.barPercentage = 1.0; // Balken nehmen den ganzen Platz ein
+      chartInstance.options.scales.x.categoryPercentage = 1.0; // Keine Lücke zwischen den Kategorien
+      chartInstance.update(); // Aktualisiere das Diagramm mit den neuen Einstellungen
+    } else {
+      // Setze die Standardwerte zurück, wenn die Bildschirmbreite außerhalb dieses Bereichs liegt
+      chartInstance.options.scales.x.barPercentage = 0.8;
+      chartInstance.options.scales.x.categoryPercentage = 0.7;
+      chartInstance.update(); // Aktualisiere das Diagramm mit den alten Einstellungen
+    }
+  }
+
+  // Setze den Listener für die Media Query
+  mediaQuery.addEventListener('change', handleMediaQuery);
+
+  // Initialer Aufruf der Funktion zur Anpassung
+  handleMediaQuery(mediaQuery);
+}
 
 // Funktion zum Abrufen und Anzeigen der Genres-Daten aufrufen
 fetchTopArtist(); // Initialer Aufruf der Funktion um die heutigen Daten beim Laden der Seite zu holen
