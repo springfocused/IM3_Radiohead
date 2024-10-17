@@ -196,6 +196,14 @@ select {
 
 /*** Handy  ***/
 @media screen and (max-width: 576px) {
+  h2 {
+    font-size: 6vw;
+}
+
+p {
+    font-size: 5vw;
+}
+
   /* Burgermenu */
   .menu a {
     font-size: 7vw;

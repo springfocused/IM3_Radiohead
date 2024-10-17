@@ -172,7 +172,7 @@
 
 .containerSmall {
   width: 30%;
-  height: 25rem;
+  height: fit-content;
   display: flex;
   flex-direction: column; /* Stellt sicher, dass die Elemente untereinander angeordnet werden */
   justify-content: flex-start;
@@ -220,6 +220,7 @@ canvas {
   .containerSmall {
     width: 90%;
     margin-bottom: 20px;
+    height: fit-content;
   }
   
 

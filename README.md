@@ -19,7 +19,7 @@ in Echtzeit, welche Musik am häufigsten gespielt wird. Zudem bietet die Seite e
 - Erstellung eines skalierbaren Web-Tools
 
 ## Schwierigkeiten:
-Während der Entwicklung unserer Webseite sind wir auf mehrere Herausforderungen gestoßen. Eine der größten Schwierigkeiten bestand darin, mithilfe der Spotify-API die Genres der Songs und Künstler, die über die SRF 1 API geliefert wurden, korrekt zu identifizieren. Darüber hinaus stellte das gesamte PHP- und ETL-Verfahren (Extract, Transform, Load) eine komplexe Aufgabe dar, die eine sorgfältige Konfiguration und Implementierung erforderte. Ein weiterer Punkt war die responsives Design, um sicherzustellen, dass die Seite auf allen Geräten korrekt angezeigt wird. Besonders herausfordernd war es, den aktuell im Radio abgespielten Song in Echtzeit anzuzeigen und gleichzeitig die Möglichkeit zu bieten, diesen Titel direkt über Spotify abzuspielen.
+Während der Entwicklung unserer Webseite sind wir auf mehrere Herausforderungen gestossen. Eine der größten Schwierigkeiten bestand darin, mithilfe der Spotify-API die Genres der Songs und Künstler, die über die SRF 1 API geliefert wurden, korrekt zu identifizieren. Darüber hinaus stellte das gesamte PHP- und ETL-Verfahren (Extract, Transform, Load) eine komplexe Aufgabe dar, die eine sorgfältige Konfiguration und Implementierung erforderte. Gegen Schluss entschieden wir uns noch dazu den aktuellen Song auf der Startseite abspielbar zu machen. Dadurch entstand noch ein weiteres PHP-File. Diese Verbindung zwischen Backend und Frontend stellte sich als schwieriger dar, als gedacht. Ein weiterer Punkt war das responsive Design, um sicherzustellen, dass die Seite auf allen Geräten korrekt angezeigt wird. 
 
 ## Benutze Ressourcen:
 - [ChatGPT](https://chat.openai.com)
@@ -28,4 +28,4 @@ Während der Entwicklung unserer Webseite sind wir auf mehrere Herausforderungen
 - Coachings
 
 ## API "Bugs":
-In unserem Fall gab es keine direkten API-Bugs, da sowohl die SRF 1 API als auch die Spotify API zuverlässig funktionieren.
+Auf unserer Startseite wird im Radio der aktuell spielende Song bei SRF1 angezeigt. Nicht ganz immer kann Spotify diesen finden und dann lässt er sich nicht abspielen. 
