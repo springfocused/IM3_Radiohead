@@ -1,30 +1,21 @@
 .radio-image {
+    position: relative;
     display: block; /* Bild wird als Block-Element behandelt */
     margin: 0 auto; /* Zentriert das Bild horizontal */
     width: 65%; /* Setzt die Breite des Bildes auf 80% der verfügbaren Breite */
-    max-width: 65%; /* Setzt die maximale Breite auf 600px, um das Bild nicht zu groß zu machen */
     height: auto; /* Beibehaltung des Seitenverhältnisses */
   }
 
-
-#playSongButton {
-  background-color: black;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  font-size: 30px;
-  text-align: center;
-  line-height: 60px;
-  cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease;
-  z-index: 15;
-  position: absolute;
-  left: 70.25%;
-  top: 34%;
-  animation: pulse 1.5s infinite ease-in-out; /* Animation */
+  #playSongButton {
+    color: white;
+    z-index: 15;
+    position: absolute;
+    left: 71.5%;
+    top: 37%;
+    animation: pulse 1.5s infinite ease-in-out; /* Animation */
+    background: none;  /* Kein Hintergrund */
+    border: none;  /* Entfernt eventuelle Randlinien */
+    animation: pulse 1.5s infinite ease-in-out; /* Animation */
   }
 
   /* Pulsierende Animation */
@@ -39,29 +30,29 @@
     transform: scale(1); /* Zurück zur Normalgröße */
   }
 }
-
+  
   #playSongButton::before {
-  content: '';  /* Platzhalter für das Symbol */
-  display: inline-block;
-  border-style: solid;
-  border-width: 15px 0 15px 25px;  /* Play-Symbol: Dreieck */
-  border-color: transparent transparent transparent white;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    content: '';  /* Platzhalter für das Symbol */
+    display: inline-block;
+    border-style: solid;
+    border-width: 15px 0 15px 25px;  /* Play-Symbol: Dreieck */
+    border-color: transparent transparent transparent white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
   
   #playSongButton.stop::before {
-  content: '';
-  border-width: 0;
-  width: 20px;
-  height: 20px;
-  background-color: white;  /* Stop-Symbol: Quadrat */
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    content: '';
+    border-width: 0;
+    width: 20px;
+    height: 20px;
+    background-color: white;  /* Stop-Symbol: Quadrat */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
   
   .spotify-embed {
@@ -96,7 +87,7 @@
   #currentSong {
   position: absolute; 
   top: 31%; 
-  left: 50%; 
+  left: 52%; 
   transform: translateX(-60%); 
   z-index: 10; 
   overflow: hidden;
@@ -172,11 +163,11 @@
 
 .containerSmall {
   width: 30%;
-  height: fit-content;
+  height: 25rem;
   display: flex;
   flex-direction: column; /* Stellt sicher, dass die Elemente untereinander angeordnet werden */
   justify-content: flex-start;
-  align-items: center;
+  align-items: stretch;
   background-color: #000000c4;
   border-radius: 15px;      /* Abgerundete Ecken */
   padding: 20px; 
@@ -223,13 +214,60 @@ canvas {
     height: fit-content;
   }
   
+  #currentSong h3{
+    font-size: 1rem;
+  }
+
+  #currentSong {
+    top: 25%;
+  }
+
+  #playSongButton {
+    width: 35px;
+    height: 35px;
+    top: 28%;
+    left: 70%;
+
+}
+
+#playSongButton::before {
+  border-width: 10px 0 10px 15px; 
+
+}
 
 }
 
 
 /*** Handy  ***/
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 450px) {
   
+  .radio-image {
+    width: 90%;
+  }
 
+
+  #currentSong h3{
+    font-size: 0.75rem;
+  }
+
+  #currentSong {
+    top: 20%;
+  }
+
+  #playSongButton {
+    top: 23%;
+    left: 75.5%;
+}
+
+#playSongButton::before {
+  border-width: 6px 0 6px 10px; 
+
+}
+
+.containerSmall {
+  width: 90%;
+  margin-bottom: 20px;
+  height: fit-content;
+}
 
 }
