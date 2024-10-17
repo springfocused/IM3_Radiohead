@@ -322,26 +322,28 @@ function createSmallArtistChart(data) {
   const playCounts = sortedData.map((item) => item.play_count); // Abgespielte Songs als Werte
 
   const rankPlugin = {
-    id: "rankPlugin",
+    id: 'rankPlugin',
     afterDatasetsDraw: (chart) => {
-      const ctx = chart.ctx;
-      const dataset = chart.getDatasetMeta(0); // Das erste Dataset
-      ctx.save();
-      ctx.font = "2vw bangers"; // Schriftart und Größe des Texts, angepasst für kleinere Bildschirme
-      ctx.fillStyle = "black"; // Textfarbe
+        const ctx = chart.ctx;
+        const dataset = chart.getDatasetMeta(0); // Das erste Dataset
+        ctx.save();
+        ctx.font = '3vw bangers'; // Schriftart und Größe des Texts
+        ctx.fillStyle = 'black'; // Textfarbe (hier schwarz)
 
-      const ranks = ["2.", "1.", "3."];
+        // Benutzerdefinierte Reihenfolge der Ränge
+        const ranks = ['2.', '1.', '3.'];
 
-      dataset.data.forEach((bar, index) => {
-        const rank = ranks[index]; // Rang basierend auf der angepassten Reihenfolge
-        const x = bar.x; // X-Position des Balkens
-        const y = bar.y + bar.height + 25; // Y-Position unterhalb des Balkens
+        dataset.data.forEach((bar, index) => {
+            const rank = ranks[index]; // Rang basierend auf der angepassten Reihenfolge
+            const x = bar.x + 8; // X-Position des Balkens
+            const y = bar.y + 60; // Y-Position knapp oberhalb des Balkens
 
-        ctx.fillText(rank, x - 10, y); // Text unter dem Balken platzieren
-      });
+            // Rangnummer an der Stelle des Balkens rendern
+            ctx.fillText(rank, x - 20, y); // Text platzieren
+        });
 
-      ctx.restore();
-    },
+        ctx.restore();
+    }
   };
 
   // Chart.js Balkendiagramm erstellen
@@ -411,6 +413,7 @@ function createSmallArtistChart(data) {
       chartInstance.options.scales.x.barPercentage = 1.0; // Balken nehmen den ganzen Platz ein
       chartInstance.options.scales.x.categoryPercentage = 1.0; // Keine Lücke zwischen den Kategorien
       chartInstance.update(); // Aktualisiere das Diagramm mit den neuen Einstellungen
+      ctx.font = '3vw bangers'; // Schriftart und Größe des Texts
     } else {
       // Setze die Standardwerte zurück, wenn die Bildschirmbreite außerhalb dieses Bereichs liegt
       chartInstance.options.scales.x.barPercentage = 0.8;
