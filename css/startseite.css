@@ -22,10 +22,14 @@
   transition: background-color 0.3s ease;
   z-index: 15;
   position: absolute;
-  left: 69.75%;
-  top: 25%;
+  left: 70.25%;
+  top: 34%;
   }
-  
+
+  #playSongButton:hover {
+    transform: scale(1.5); /* Vergrößert das Objekt um 150%, behält das Seitenverhältnis */
+  }
+
   #playSongButton::before {
   content: '';  /* Platzhalter für das Symbol */
   display: inline-block;
@@ -50,28 +54,31 @@
   transform: translate(-50%, -50%);
   }
   
-  #playSongButton:hover {
-  background-color: #444;
+  .spotify-embed {
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 150%;
+  width: 100%;
   }
-  
-  /*#spotifyIframe {
-   width: 0;
-  height: 0;
-  border: none;
-  visibility: hidden; 
-  }*/
+
+  #spotifyIframe {
+    width: 110%;
+    height: fit-content;
+  }
   
   /* Der Container, der das Radio-Bild und den Songtext enthält */
   .radio-container {
   position: relative; /* Relativer Container als Bezugspunkt */
-  width: fit-content; /* Passt sich dem Inhalt an */
+  width: 100%; /* Passt sich dem Inhalt an */
   margin: 0 auto; /* Zentriert den Container auf der Seite */
   }
   
   /* Positioniere #currentSong relativ zum .radio-container */
   #currentSong {
   position: absolute; 
-  top: 22%; 
+  top: 31%; 
   left: 50%; 
   transform: translateX(-60%); 
   z-index: 10; 

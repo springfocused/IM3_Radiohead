@@ -333,8 +333,8 @@ function createSmallArtistChart(data) {
 
           dataset.data.forEach((bar, index) => {
               const rank = ranks[index]; // Rang basierend auf der angepassten Reihenfolge
-              const x = bar.x + 10; // X-Position des Balkens
-              const y = bar.y + 75; // Y-Position knapp oberhalb des Balkens
+              const x = bar.x + 8; // X-Position des Balkens
+              const y = bar.y + 60; // Y-Position knapp oberhalb des Balkens
 
               // Rangnummer an der Stelle des Balkens rendern
               ctx.fillText(rank, x - 20, y); // Text platzieren
