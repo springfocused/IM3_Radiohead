@@ -138,17 +138,20 @@
   #preview {
     display: flex;                /* Flexbox aktivieren */
     justify-content: space-between; /* Platzierung der Elemente mit Abstand dazwischen */
-    align-items: stretch;          /* Artikel gleich hoch machen */
+     align-items: flex-start;       /* Elemente oben ausrichten */
     gap: 20px;                     /* Abstand zwischen den Artikeln */
   }
 
+  #preview .containerSmall h2 {
+    text-align: center;
+}
 
 .containerSmall {
   width: 30%;
   height: 25rem;
   display: flex;
   flex-direction: column; /* Stellt sicher, dass die Elemente untereinander angeordnet werden */
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   background-color: #000000c4;
   border-radius: 15px;      /* Abgerundete Ecken */
@@ -162,6 +165,7 @@
     .containerSmall p{
       margin-bottom: 1%;
       }
+
 
 a {
   display: block;
