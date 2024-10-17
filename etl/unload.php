@@ -2,6 +2,7 @@
 
 // Datenbankkonfiguration einbinden
 require_once 'config.php';
+header('Access-Control-Allow-Origin: *');
 
 // Header setzen, um JSON-Inhaltstyp zurückzugeben
 header('Content-Type: application/json');
