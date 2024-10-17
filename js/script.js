@@ -296,64 +296,71 @@ async function fetchTopArtist() {
     }
 }
 
-// Funktion zum Erstellen des kleinen Diagramms mit Genres-Daten
+// Funktion zum Erstellen des kleinen Diagramms mit Künstler-Daten
 function createSmallArtistChart(data) {
-    // Daten für das Diagramm vorbereiten
-    const labels = data.map(item => item.artist); // Genres als Labels
-    const playCounts = data.map(item => item.play_count); // Abgespielte Songs als Werte
+  // Hier wird die Reihenfolge geändert
+  const sortedData = [
+      data[1], // 2. Rang
+      data[0], // 1. Rang
+      data[2]  // 3. Rang
+  ];
 
-    // Chart.js Balkendiagramm erstellen
-    new Chart(smallArtistChart, {
-        type: 'bar', // Balkendiagramm
-        data: {
-            labels: labels, // Labels für die Genres
-            datasets: [{
-                label: 'Top 3 Artists',
-                data: playCounts, // Werte für die Genres
-                backgroundColor: '#f2e206', // Gelbe Balkenfarbe
-                borderColor: '#f2e206', // Gelber Rand
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                x: {
-                    ticks: {
+  // Daten für das Diagramm vorbereiten
+  const labels = sortedData.map(item => item.artist); // Labels für die Künstler
+  const playCounts = sortedData.map(item => item.play_count); // Abgespielte Songs als Werte
+
+  // Chart.js Balkendiagramm erstellen
+  new Chart(smallArtistChart, {
+      type: 'bar', // Balkendiagramm
+      data: {
+          labels: labels, // Labels für die Künstler
+          datasets: [{
+              label: 'Top 3 Artists',
+              data: playCounts, // Werte für die Künstler
+              backgroundColor: '#f2e206', // Gelbe Balkenfarbe
+              borderColor: '#f2e206', // Gelber Rand
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              x: {
+                  ticks: {
                       color: '#ffff', 
-                        maxRotation: 0, // Maximale Drehung
-                        font: {
-                            size: 18,  // Kleinere Schriftgröße
-                            family: 'bangers',  // Schriftart
-                        }
-                    },
-                    grid: {
+                      maxRotation: 0, // Maximale Drehung
+                      font: {
+                          size: 18,  // Kleinere Schriftgröße
+                          family: 'bangers',  // Schriftart
+                      }
+                  },
+                  grid: {
                       display: false, // Keine horizontalen Linien für die X-Achse
                   },
                   border: {
-                    display: false, // Nur eine Linie für die X-Achse
+                      display: false, // Keine Linie für die X-Achse
                   }
-                },
-
-                y: {
-                    beginAtZero: true, // Y-Achse beginnt bei 0
-                    ticks: {
-                      display: false, // Farbe der Y-Achse Schrift auf Weiß setzen
+              },
+              y: {
+                  beginAtZero: false, // Y-Achse beginnt nicht bei 0
+                  min: 10, // Mindestwert für die Y-Achse
+                  ticks: {
+                      display: false, // Y-Achse Schrift ausblenden
                   },
                   grid: {
                       display: false, // Keine vertikalen Linien für die Y-Achse
                   },
                   border: {
-                    display: false, // Nur eine Linie für die Y-Achse
+                      display: false, // Keine Linie für die Y-Achse
                   }
-                }
-            }, 
-            plugins: {
+              }
+          },
+          plugins: {
               legend: {
                   display: false, // Legende ausblenden
               }
           }
-        }
-    });
+      }
+  });
 }
 
 // Funktion zum Abrufen und Anzeigen der Genres-Daten aufrufen
