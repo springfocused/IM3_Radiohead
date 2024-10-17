@@ -11,7 +11,7 @@
     z-index: 15;
     position: absolute;
     left: 71.5%;
-    top: 37%;
+    top: 38%;
     animation: pulse 1.5s infinite ease-in-out; /* Animation */
     background: none;  /* Kein Hintergrund */
     border: none;  /* Entfernt eventuelle Randlinien */
@@ -24,7 +24,7 @@
     transform: scale(1); /* Normalgröße */
   }
   50% {
-    transform: scale(1.1); /* Leicht vergrößern */
+    transform: scale(1.3); /* Leicht vergrößern */
   }
   100% {
     transform: scale(1); /* Zurück zur Normalgröße */
@@ -67,6 +67,9 @@
   #spotifyIframe {
     width: 110%;
     height: fit-content;
+    border: none;
+    z-index: 20;
+    background-color: transparent;
   }
   
 
