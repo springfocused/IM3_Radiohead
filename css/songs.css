@@ -33,17 +33,22 @@
 
 .song-plays {
     width: 20%;
+    display: flex;
 }
 
 
 
 /* AB HIER MEDIAQUERIES ALLGEMEIN */
 
-/*** Tablet ***/
-@media screen and (max-width: 820px) {
+/*** Handy  ***/
+@media screen and (max-width: 576px) {
 
     .song-item {
         padding: 0rem;
+    }
+
+    .song-item h2 {
+        font-size: 5vw;
     }
 
     .song-rank {
@@ -54,7 +59,7 @@
     }
 
     .song-plays {
-        text-align: right;
+        justify-content: end;
     }
 
 }

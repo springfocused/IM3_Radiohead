@@ -182,10 +182,7 @@ select {
       font-size: 3vw;
   }
 
-  select {
-    font-size: 2vw;
-    width: 25%;
-  }
+
 
   .menu a {
     font-size: 6vw;
@@ -196,11 +193,16 @@ select {
 /*** Handy  ***/
 @media screen and (max-width: 576px) {
   h2 {
-    font-size: 6vw;
+    font-size: 5vw;
 }
 
 p {
     font-size: 5vw;
+}
+
+select {
+  font-size: 4vw;
+  width: 25%;
 }
 
   /* Burgermenu */
