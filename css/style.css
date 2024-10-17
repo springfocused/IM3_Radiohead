@@ -60,7 +60,6 @@ p {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
   background-color: #000000c4;
   border-radius: 15px;      /* Abgerundete Ecken */
   padding: 2%; 
