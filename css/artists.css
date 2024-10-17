@@ -43,8 +43,15 @@
     .artist-item {
         padding: 0rem;
     }
-    .artist-title, .song-artist {
+    .artist-rank {
         width: 20%;
+    }
+    .artist {
+        width: 20%;
+    }
+    .artist-plays {
+        text-align: left;
+        padding-right: 5%;
     }
 
 }
