@@ -184,7 +184,8 @@ select {
   }
 
   select {
-    font-size: 3vw;
+    font-size: 2vw;
+    width: 25%;
   }
 
   .menu a {

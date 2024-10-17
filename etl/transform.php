@@ -164,10 +164,10 @@ foreach ($srf_data['songList'] as $song) {
         ];
     }
 }
-
+print_r($transformedData);
 return $transformedData; // Gibt die transformierten Daten zurück
 
 $genres = getGenresFromTrack($track, $access_token);
 
-print_r($spotifyTrackId);
+
 ?>

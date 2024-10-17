@@ -45,6 +45,10 @@
     .song-item {
         padding: 0rem;
     }
+
+    .song-rank {
+        width: 5%;
+    }
     .song-title, .song-artist {
         width: 20%;
     }

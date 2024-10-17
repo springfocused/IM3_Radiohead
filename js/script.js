@@ -13,7 +13,7 @@ function toggleMenu() {
 // URL der API zum Abrufen des aktuell gespielten Songs (via Backend)
 const songUrl = 'https://il.srgssr.ch/integrationlayer/2.0/srf/songList/radio/byChannel/69e8ac16-4327-4af4-b873-fd5cd6e895a7'; // Backend-URL für die Song-Daten
 
-let currentSongId = null; // Globale Variable für die Spotify Track ID
+let currentSongId = "40dCbY0oJsG2ZdvaGVB34d"; // Globale Variable für die Spotify Track ID
 
 // Funktion zum Abrufen des aktuell gespielten Songs
 async function fetchCurrentSong() {
@@ -30,11 +30,13 @@ async function fetchCurrentSong() {
     songDisplay.innerHTML = '';
 
     if (currentSong) {
-      // Jetzt wird die Spotify Track ID verwendet
-      currentSongId = currentSong.spotifyTrackId; 
+      // Jetzt wird die Spotify Track ID verwendet use the function getSpotifyTrackIdFromBackend
+      currentSongId = await getSpotifyTrackIdFromBackend(currentSong.title, currentSong.artist.name);
+      console.log(currentSong.artist.name);
+      console.log('Current Song ID from fetchCurrentSong():', currentSong);
 
       // Zeige den Titel des aktuellen Songs an
-      songDisplay.innerHTML = `<h3>Jetzt läuft: <strong>${currentSong.title}</strong></h3>`;
+      songDisplay.innerHTML = `<h3>Jetzt laeuft: <strong>${currentSong.title}</strong></h3>`;
 
       // Setze den Spotify Iframe src, wenn die currentSongId erfolgreich abgerufen wurde
       if (currentSongId) {
@@ -55,12 +57,16 @@ async function fetchCurrentSong() {
 // Funktion zum Abrufen der Spotify Track ID über das Backend (transform.php)
 async function getSpotifyTrackIdFromBackend(title, artist) {
   try {
-    const response = await fetch('https://springfocused.ch/etl/transform.php', {
-      method: 'POST',
+    // Construct the URL with query parameters for the song name and artist name
+    const url = `https://springfocused.ch/etl/playSong.php?song_name=${encodeURIComponent(title)}&artist_name=${encodeURIComponent(artist)}`;
+    console.log ('URL für die Spotify-Track-ID:', url);
+    
+    // Make a GET request to the backend with the song and artist as parameters
+    const response = await fetch(url, {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ title: title, artist: artist })
+      }
     });
 
     if (!response.ok) {
@@ -68,8 +74,11 @@ async function getSpotifyTrackIdFromBackend(title, artist) {
     }
 
     const data = await response.json();
-    if (data.spotifyTrackId) {
-      return data.spotifyTrackId; // Rückgabe der gefundenen Spotify-Track-ID
+    
+    // Check if the data contains track information and return the ID
+    if (data && data.tracks && data.tracks.items && data.tracks.items.length > 0) {
+      const trackId = data.tracks.items[0].id;
+      return trackId; // Rückgabe der gefundenen Spotify-Track-ID
     } else {
       console.log('Keine Spotify-Track-ID im Backend gefunden');
       return null;
@@ -79,6 +88,7 @@ async function getSpotifyTrackIdFromBackend(title, artist) {
     return null;
   }
 }
+
 
 // Funktion zur Steuerung des Play-Buttons
 function setupPlayButton() {
@@ -265,7 +275,6 @@ function createSmallGenresChart(data) {
 fetchTopGenres(); // Initialer Aufruf der Funktion um die heutigen Daten beim Laden der Seite zu holen
 
 
-
 // Top Artists
 const smallArtistChart = document.getElementById('smallArtistChart'); // Canvas-Element für das kleine Diagramm
 
@@ -298,7 +307,7 @@ async function fetchTopArtist() {
 
 // Funktion zum Erstellen des kleinen Diagramms mit Künstler-Daten
 function createSmallArtistChart(data) {
-  // Hier wird die Reihenfolge geändert
+  // Hier wird die Reihenfolge geändert: 2. Rang, 1. Rang, 3. Rang
   const sortedData = [
       data[1], // 2. Rang
       data[0], // 1. Rang
@@ -308,6 +317,32 @@ function createSmallArtistChart(data) {
   // Daten für das Diagramm vorbereiten
   const labels = sortedData.map(item => item.artist); // Labels für die Künstler
   const playCounts = sortedData.map(item => item.play_count); // Abgespielte Songs als Werte
+
+  // Plugin zum Hinzufügen der Rangnummern
+  const rankPlugin = {
+      id: 'rankPlugin',
+      afterDatasetsDraw: (chart) => {
+          const ctx = chart.ctx;
+          const dataset = chart.getDatasetMeta(0); // Das erste Dataset
+          ctx.save();
+          ctx.font = '3vw bangers'; // Schriftart und Größe des Texts
+          ctx.fillStyle = 'black'; // Textfarbe (hier schwarz)
+
+          // Benutzerdefinierte Reihenfolge der Ränge
+          const ranks = ['2.', '1.', '3.'];
+
+          dataset.data.forEach((bar, index) => {
+              const rank = ranks[index]; // Rang basierend auf der angepassten Reihenfolge
+              const x = bar.x + 10; // X-Position des Balkens
+              const y = bar.y + 75; // Y-Position knapp oberhalb des Balkens
+
+              // Rangnummer an der Stelle des Balkens rendern
+              ctx.fillText(rank, x - 20, y); // Text platzieren
+          });
+
+          ctx.restore();
+      }
+  };
 
   // Chart.js Balkendiagramm erstellen
   new Chart(smallArtistChart, {
@@ -359,11 +394,11 @@ function createSmallArtistChart(data) {
                   display: false, // Legende ausblenden
               }
           }
-      }
+      },
+      plugins: [rankPlugin] // Plugin hinzufügen
   });
 }
 
+
 // Funktion zum Abrufen und Anzeigen der Genres-Daten aufrufen
 fetchTopArtist(); // Initialer Aufruf der Funktion um die heutigen Daten beim Laden der Seite zu holen
-
-
