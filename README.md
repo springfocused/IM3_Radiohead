@@ -10,7 +10,7 @@ und Genres auf Radio SRF 1 zu bieten. Mit den gewonnenen Daten präsentieren wir
 in Echtzeit, welche Musik am häufigsten gespielt wird. Zudem bietet die Seite eine Übersicht der Musiktrends, basierend auf den Häufigkeiten und Entwicklungen der gespielten Songs. Dank der grafischen Darstellungen können die Besucher nachvollziehen, welche Songs und Genres die Schweizer Radiolandschaft prägen.
 
 ## Learnings:
-- Verwendung von PHP und ETL-Verfahren (Extract, Transform, Load)
+- Verwendung von PHP und ETL-Verfahren (Extract, Transform, Load, Unload)
 - API-Integration (Radio SRF 1 und Spotify)
 - Datenarchivierung und Abrufbarkeit
 - Datenvisualisierung mit Balkendiagrammen
@@ -19,7 +19,7 @@ in Echtzeit, welche Musik am häufigsten gespielt wird. Zudem bietet die Seite e
 - Erstellung eines skalierbaren Web-Tools
 
 ## Schwierigkeiten:
-Während der Entwicklung unserer Webseite sind wir auf mehrere Herausforderungen gestossen. Eine der größten Schwierigkeiten bestand darin, mithilfe der Spotify-API die Genres der Songs und Künstler, die über die SRF 1 API geliefert wurden, korrekt zu identifizieren. Darüber hinaus stellte das gesamte PHP- und ETL-Verfahren (Extract, Transform, Load) eine komplexe Aufgabe dar, die eine sorgfältige Konfiguration und Implementierung erforderte. Gegen Schluss entschieden wir uns noch dazu den aktuellen Song auf der Startseite abspielbar zu machen. Dadurch entstand noch ein weiteres PHP-File. Diese Verbindung zwischen Backend und Frontend stellte sich als schwieriger dar, als gedacht. Ein weiterer Punkt war das responsive Design, um sicherzustellen, dass die Seite auf allen Geräten korrekt angezeigt wird. 
+Während der Entwicklung unserer Webseite sind wir auf mehrere Herausforderungen gestossen. Eine der grössten Schwierigkeiten bestand darin, mithilfe der Spotify-API die Genres der Songs und Künstler, die über die SRF 1 API geliefert wurden, korrekt zu identifizieren. Gegen Schluss entschieden wir uns noch dazu den aktuellen Song auf der Startseite abspielbar zu machen. Dadurch entstand noch ein weiteres PHP-File. Diese Verbindung zwischen Backend und Frontend stellte sich als schwieriger dar, als gedacht, bis es nach langem Herumprobieren und etwas Unterstützung von Beni endlich geklappt hat. Eine weitere Schwierigkeit war das responsive Design - insbesondere das Radio auf der Startseite.
 
 ## Benutze Ressourcen:
 - [ChatGPT](https://chat.openai.com)
